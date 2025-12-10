@@ -1,0 +1,56 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: 'Here is a sentence with pronoun(s) whose antecedent(s) can either be derived from the context or is ambiguous.
+
+      Sentence: The doctor called the nurse and asked her to bring the chart.
+
+      Which of the following options correctly explains the antecedent(s) of the pronoun(s)?
+
+      (A) The doctor asked the nurse to bring the chart.
+
+      (B) The nurse asked the doctor to bring the chart.
+
+      (C) The doctor asked herself to bring the chart.
+
+      (D) The nurse asked herself to bring the chart.
+
+      (E) Ambiguous.'
+    target: (A)
+  - input: 'Here is a sentence with pronoun(s) whose antecedent(s) can either be derived from the context or is ambiguous.
+
+      Sentence: The teacher told the student that he should study more.
+
+      Which of the following options correctly explains the antecedent(s) of the pronoun(s)?
+
+      (A) The student should study more.
+
+      (B) The teacher should study more.
+
+      (C) Both should study more.
+
+      (D) Neither should study more.
+
+      (E) Ambiguous.'
+    target: (A)
+  - input: 'Here is a sentence with pronoun(s) whose antecedent(s) can either be derived from the context or is ambiguous.
+
+      Sentence: The manager spoke to the employee about his performance.
+
+      Which of the following options correctly explains the antecedent(s) of the pronoun(s)?
+
+      (A) The manager''s performance was discussed.
+
+      (B) The employee''s performance was discussed.
+
+      (C) Both performances were discussed.
+
+      (D) Neither performance was discussed.
+
+      (E) Ambiguous.'
+    target: (B)
+description: "Resolve pronoun antecedents in sentences. Determine which option correctly explains the antecedent(s) of pronoun(s), or if the reference is ambiguous."
+include: _fewshot_template_yaml
+task: leaderboard_bbeh_disambiguation_qa
+process_docs: !function utils.process_docs_disambiguation_qa
+doc_to_choice: ["(A)", "(B)", "(C)", "(D)", "(E)", "(F)", "(G)", "(H)"]

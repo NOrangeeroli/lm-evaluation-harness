@@ -1,0 +1,39 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: "The plural of English nouns is usually formed by adding the ending -s. But if the noun ends in s, x, z, ch, or sh, we add -es.\nHere are the singular and the plural forms of some English nouns and their translations. Some forms are missing.\n\nSingular | Plural | Translation\ncat | cats | gato\n dog | (1) | perro\nbox | boxes | caja\n(2) | churches | iglesia\n\nFill in the masked element indicated with (1), assuming the (1), (2), ... elements are masked out elements."
+    target: dogs
+  - input: 'The following are words of Language X written in orthography, their phonetic transcriptions and English translations:
+
+
+      1. cat | [kæt] | gato
+
+      2. dog | [dɔg] | perro
+
+      3. bird | [bɜrd] | pájaro
+
+      4. fish | [fɪʃ] | pez
+
+
+      Transcribe the following words:
+
+      house | casa'
+    target: '[haʊs]'
+  - input: 'Here are some sentences in Language Y and their English translations:
+
+
+      1. I see cat | I see the cat
+
+      2. You see dog | You see the dog
+
+      3. He sees bird | He sees the bird
+
+
+      Translate into English:
+
+      She sees fish'
+    target: She sees the fish
+description: "Solve linguistic puzzles involving word formation, phonetic transcription, or translation. Fill in missing elements in tables or translate words/sentences based on provided examples."
+include: _fewshot_template_generate.yaml
+task: leaderboard_bbeh_linguini
+process_docs: !function utils.process_docs_linguini

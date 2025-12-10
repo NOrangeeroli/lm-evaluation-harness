@@ -1,0 +1,53 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: 'You are an expert in word sorting. You will be provided with a list of words and the steps taken, in the form of thoughts, to arrange them in alphabetical order.
+
+      Your job is to identify the first step that was a mistake in reasoning about the order of the words. This can be misunderstanding the order of the alphabet or getting the word or letter wrong or missing a word entirely.
+
+      Q: Sort the following words alphabetically: List: cat apple banana
+
+      Thought 1: I should start by looking at the first letter of the words in the list. The first letter: "cat": "c" (3). "apple": "a" (1). "banana": "b" (2).
+
+      Thought 2: We now have: (1) "apple" < (2) "banana" < (3) "cat".
+
+      Thought 3: I have now sorted all the words. The answer is apple banana cat
+
+      Q: Is there a mistake in this sequence? Write "No" if there are no mistakes, or the number N if there is a mistake in Thought N.'
+    target: 'No'
+  - input: 'You are an expert in word sorting. You will be provided with a list of words and the steps taken, in the form of thoughts, to arrange them in alphabetical order.
+
+      Your job is to identify the first step that was a mistake in reasoning about the order of the words. This can be misunderstanding the order of the alphabet or getting the word or letter wrong or missing a word entirely.
+
+      Q: Sort the following words alphabetically: List: zebra ant dog
+
+      Thought 1: I should start by looking at the first letter of the words in the list. The first letter: "zebra": "z" (26). "ant": "a" (1). "dog": "d" (4).
+
+      Thought 2: We now have: (1) "ant" < (4) "dog" < (26) "zebra".
+
+      Thought 3: I have now sorted all the words. The answer is ant zebra dog
+
+      Q: Is there a mistake in this sequence? Write "No" if there are no mistakes, or the number N if there is a mistake in Thought N.'
+    target: '3'
+  - input: 'You are an expert in word sorting. You will be provided with a list of words and the steps taken, in the form of thoughts, to arrange them in alphabetical order.
+
+      Your job is to identify the first step that was a mistake in reasoning about the order of the words. This can be misunderstanding the order of the alphabet or getting the word or letter wrong or missing a word entirely.
+
+      Q: Sort the following words alphabetically: List: moon sun star
+
+      Thought 1: I should start by looking at the first letter of the words in the list. The first letter: "moon": "m" (13). "sun": "s" (19). "star": "s" (19).
+
+      Thought 2: We now have: (13) "moon" < (19) ["sun" ? "star"].
+
+      Thought 3: Now let''s sort this subpart ["sun" ? "star"] by looking at their second letters. The second letter: "sun": "u" (21). "star": "t" (20).
+
+      Thought 4: We now have: (20) "star" < (21) "sun" for the subpart. Hence, we have "moon" < "star" < "sun".
+
+      Thought 5: I have now sorted all the words. The answer is moon star sun
+
+      Q: Is there a mistake in this sequence? Write "No" if there are no mistakes, or the number N if there is a mistake in Thought N.'
+    target: 'No'
+description: "Identify mistakes in reasoning about alphabetical word sorting. Find the first step (Thought N) that contains an error in the sorting process, or 'No' if there are no mistakes. May also involve sorting with custom alphabet orders."
+include: _fewshot_template_generate.yaml
+task: leaderboard_bbeh_word_sorting
+process_docs: !function utils.process_docs_word_sorting

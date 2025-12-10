@@ -1,0 +1,13 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: You have been given a circular path consisting of 8 connected dots. At the start, you are positioned on the dot that is located at the top of the path, where you find a laptop. Moving in a clockwise direction from the laptop, the elements on the path are a book, a pen, a phone, a cup, a lamp, a chair, and a table. Starting from the laptop, you move around the ring by 2 steps in a clockwise direction. What will you find? Your final answer must be only the object name (e.g., laptop). If you have not previously seen the object at the vertex, your final answer must be "unknown".
+    target: pen
+  - input: You have been given a circular path consisting of 6 connected dots. At the start, you are positioned on the dot that is located at the top of the path, where you find a cat. Moving in a clockwise direction from the cat, the elements on the path are a dog, a bird, a fish, a rabbit, and a hamster. Starting from the bird, you move around the ring by 3 steps in a counter-clockwise direction. What will you find? Your final answer must be only the object name (e.g., laptop). If you have not previously seen the object at the vertex, your final answer must be "unknown".
+    target: rabbit
+  - input: You have been given a circular path consisting of 10 connected dots. At the start, you are positioned on the dot that is located at the top of the path, where you find a star. Moving in a clockwise direction from the star, the elements on the path are a moon, a sun, a planet, a comet, an asteroid, a galaxy, a nebula, a black hole, and a quasar. Starting from the planet, you move around the ring by 4 steps in a clockwise direction, and then 2 steps in a counter-clockwise direction. What will you find? Your final answer must be only the object name (e.g., laptop). If you have not previously seen the object at the vertex, your final answer must be "unknown".
+    target: comet
+description: "Navigate circular paths with objects at connected dots. Starting from a position, move clockwise or counter-clockwise by specified steps to determine what object you find."
+include: _fewshot_template_generate.yaml
+task: leaderboard_bbeh_spatial_reasoning
+process_docs: !function utils.process_docs_spatial_reasoning

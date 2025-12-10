@@ -1,0 +1,14 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: "The following is a description of a funny cartoon for the New Yorker Caption Contest\n\n  Description: A dog is sitting at a desk with a computer, wearing glasses and looking serious.\n\n  Which of the following captions is the funniest?\n(A) Working from home has its challenges.\n(B) I need to speak with your manager.\n(C) This is my serious face.\n(D) Can I help you with something?\n(E) Just another day at the office.\n(F) I'm taking this very seriously.\n(G) Do you have any treats?\n(H) This is my professional look.\n(I) I'm here for the interview.\n(J) Can we discuss my benefits?"
+    target: (A)
+  - input: "The following is a description of a funny cartoon for the New Yorker Caption Contest\n\n  Description: A cat is wearing a business suit and holding a briefcase, standing in an office.\n\n  Which of the following captions is the funniest?\n(A) I'm here for the interview.\n(B) This is my professional look.\n(C) Do you have any tuna?\n(D) I mean business.\n(E) Just another Monday.\n(F) I'm ready for my performance review.\n(G) Can we discuss my nap schedule?\n(H) I'm taking this very seriously.\n(I) This is my serious face.\n(J) I need to speak with your manager."
+    target: (C)
+  - input: "The following is a description of a funny cartoon for the New Yorker Caption Contest\n\n  Description: A bird is carrying a briefcase and wearing a tie, standing at a bus stop.\n\n  Which of the following captions is the funniest?\n(A) Early bird catches the worm.\n(B) Flying to work today.\n(C) This is my commute.\n(D) Just another day.\n(E) I'm running late.\n(F) I'm taking the early flight.\n(G) This is my professional look.\n(H) I need to speak with your manager.\n(I) Can we discuss my schedule?\n(J) I'm here for the interview."
+    target: (B)
+description: "Select the funniest caption for a New Yorker Caption Contest cartoon description. Requires understanding humor, wordplay, and context to identify the most amusing option."
+include: _fewshot_template_yaml
+task: leaderboard_bbeh_nycc
+process_docs: !function utils.process_docs_nycc
+doc_to_choice: ["(A)", "(B)", "(C)", "(D)", "(E)", "(F)", "(G)", "(H)", "(I)", "(J)"]

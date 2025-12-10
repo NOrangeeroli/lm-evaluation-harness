@@ -1,0 +1,61 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: 'I have a table with 5 rows (including the header) and 3 columns. The table was converted to markdown format as follows:
+
+
+      | name | value | count |
+
+      | --- | --- | --- |
+
+      | A | 10 | 5 |
+
+      | B | ERROR | 3 |
+
+      | C | 30 | 2 |
+
+      | D | 40 | null |
+
+
+      However, the code to convert the table into markdown format was buggy and mistakenly replaced some values with "ERROR". The values for those cells in column-order are respectively as follows: [20]. Compute the average of the value column across all rows. Round the result to 2 decimal places. If a value is null, ignore it from the computations. If the average cannot be computed due to there being no values, the final answer must be "0".'
+    target: '25.00'
+  - input: 'I have a table with 6 rows (including the header) and 4 columns. The table was converted to markdown format as follows:
+
+
+      | id | score | time | level |
+
+      | --- | --- | --- | --- |
+
+      | 1 | 100 | 60 | 1 |
+
+      | 2 | ERROR | 120 | 2 |
+
+      | 3 | 150 | null | 1 |
+
+      | 4 | 250 | 150 | 3 |
+
+      | 5 | ERROR | 110 | 2 |
+
+
+      However, the code to convert the table into markdown format was buggy and mistakenly replaced some values with "ERROR". The values for those cells in column-order are respectively as follows: [200, 180]. Compute the median of the score column across all rows, only looking at the rows where level is greater than 1. Round the result to 2 decimal places. If it cannot be determined whether the condition is satisfied or not (e.g., due to null values that cannot be inferred from the rest of the table), assume the condition is not satisfied. If a value is null, ignore it from the computations. If the median cannot be computed due to there being no values, the final answer must be "0".'
+    target: '200.00'
+  - input: 'I have a table with 4 rows (including the header) and 3 columns. The table was converted to markdown format as follows:
+
+
+      | item | price | quantity |
+
+      | --- | --- | --- |
+
+      | X | 15.5 | 10 |
+
+      | Y | ERROR | 5 |
+
+      | Z | 35.5 | null |
+
+
+      However, the code to convert the table into markdown format was buggy and mistakenly replaced some values with "ERROR". The values for those cells in column-order are respectively as follows: [25.0]. Compute the absolute difference between the average of the price column and the average of the quantity column, only looking at the rows where price is greater than 20. Round the result to 2 decimal places. If it cannot be determined whether the condition is satisfied or not (e.g., due to null values that cannot be inferred from the rest of the table), assume the condition is not satisfied. If a value is null, ignore it from the computations. If any of the averages cannot be computed due to there being no values, the final answer must be "0".'
+    target: '5.00'
+description: "Fix buggy markdown tables where some values were replaced with 'ERROR'. Replace errors with correct values and compute statistics (average, median, etc.) on the corrected table data."
+include: _fewshot_template_generate.yaml
+task: leaderboard_bbeh_buggy_tables
+process_docs: !function utils.process_docs_buggy_tables

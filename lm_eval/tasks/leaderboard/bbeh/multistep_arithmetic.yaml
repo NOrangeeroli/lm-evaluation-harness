@@ -1,0 +1,49 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: 'Consider the following new operations:
+
+
+      $a & b$ equals $(a - b)$ if $a * b > 0$; otherwise, it equals $-a - -b$.
+
+      $a >< b$ equals $(a - b)$ if $a * b > 0$; otherwise, it equals $a & b$.
+
+
+      Let A = (5 & 3) >< 2
+
+      Let B = (10 & 5) >< 3
+
+      Compute A + B. Your final answer must be in number form.'
+    target: '7'
+  - input: 'Consider the following new operations:
+
+
+      $a @ b$ equals $(a + b)$ if $a > b$; otherwise, it equals $(a - b)$.
+
+      $a ~ b$ equals $(a * b)$ if $a + b > 10$; otherwise, it equals $(a / b)$.
+
+
+      Let A = (8 @ 3) ~ 2
+
+      Let B = (5 @ 7) ~ 4
+
+      Compute A - B. Your final answer must be in number form.'
+    target: '9'
+  - input: 'Consider the following new operations:
+
+
+      $a # b$ equals $a + b$ if both $a$ and $b$ are even; otherwise, it equals $a - b$.
+
+      $a $ b$ equals $a * b$ if $a > 5$; otherwise, it equals $a + b$.
+
+
+      Let A = (6 # 4) $ 3
+
+      Let B = (3 # 5) $ 7
+
+      Compute A + B. Your final answer must be in number form.'
+    target: '37'
+description: "Perform arithmetic calculations using custom-defined operations (e.g., &, ><, @, ~, #, $) with conditional rules. Compute expressions involving multiple steps and custom operators."
+include: _fewshot_template_generate.yaml
+task: leaderboard_bbeh_multistep_arithmetic
+process_docs: !function utils.process_docs_multistep_arithmetic

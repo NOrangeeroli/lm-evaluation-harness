@@ -1,0 +1,43 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: 'Let the answer to Question1 be X.
+
+
+      Question1: The birthdate of Alice is 2000-Jan-01. Today is 2024-Jan-01. Compute the age of Alice in days. Your answer should be the number of days without the unit (for example, 233).
+
+
+      Let the answer to Question2 be Y.
+
+
+      Question2: Bob was born on 2010-02-15. Compute his age in days on 2020-02-14. Both dates are in yyyy-mm-dd format. Your answer should be the number of days without the unit (for example, 233).
+
+
+      Let the answer to Question3 be Z.
+
+
+      Question3: Charlie was born on 1995-06-10. Today is 2020-08-15. List the names of people who are older than 7000 days today, in alphabetical order. Your answer should be a list in the format [name1, name2, ...] (for example, [alice, bob]).'
+    target: '[alice, charlie]'
+  - input: 'Let the answer to Question1 be X, Y, Z.
+
+
+      Question1: The average time taken to complete a task is 30 minutes and 15 seconds. Calculate the time taken to complete 5 tasks at the same rate. Your answer should be the value of X, Y, and Z, respectively (for example, 2, 5, 10).
+
+
+      Let X'' = X - 5, Y'' = Y - 10, and Z'' = Z - 15.
+
+
+      Question2: On a certain day, Person A started working at X'' hours Y'' minutes, and worked for Z'' hours. When did Person A finish working? Your answer should be in the format HH:MM (for example, 14:30).'
+    target: 02:32
+  - input: 'Let the answer to Question1 be X.
+
+
+      Question1: Sarah was born on 1995-06-10. Today is 2020-08-15. Compute Sarah''s age in days. Your answer should be the number of days without the unit (for example, 233).
+
+
+      Question2: Based on X from Question1, if someone was born X days before Sarah, what is their birthdate? Your answer should be in the format Month DD, YYYY (for example, January 15, 2000).'
+    target: January 15, 1970
+description: "Perform time and date arithmetic calculations. Compute ages in days, calculate time differences, or answer questions that depend on previous answers. May involve date formatting or list outputs."
+include: _fewshot_template_generate.yaml
+task: leaderboard_bbeh_time_arithmetic
+process_docs: !function utils.process_docs_time_arithmetic

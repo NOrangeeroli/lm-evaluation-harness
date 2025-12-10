@@ -1,0 +1,80 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: 'Alice and Bob work from 9 to 5 their local time on weekdays. They want to have a meeting some time this week.
+
+
+      The schedule for Alice''s week in their local time is as follows:
+
+      Monday: Booked at the following times: from 10:00 to 11:00, from 14:00 to 15:00
+
+      Tuesday: Booked at the following times: from 11:00 to 12:00
+
+      Wednesday: Booked at the following times: from 13:00 to 14:00
+
+      Thursday: Booked at the following times: from 10:00 to 11:00
+
+      Friday: Booked at the following times: from 15:00 to 16:00
+
+
+      The schedule for Bob''s week in their local time is as follows:
+
+      Monday: Booked at the following times: from 9:00 to 10:00, from 15:00 to 16:00
+
+      Tuesday: Booked at the following times: from 12:00 to 13:00
+
+      Wednesday: Booked at the following times: from 14:00 to 15:00
+
+      Thursday: Booked at the following times: from 11:00 to 12:00
+
+      Friday: Booked at the following times: from 13:00 to 14:00
+
+
+      Let X be the length of the longest meeting (in minutes) that can be scheduled if the meeting has to start on the hour or half hour. Also, let Y be number of possible options of such meetings. Compute X and Y and report them separated by a comma (e.g., 45, 3). If X is 0, report 0, 0.'
+    target: 60, 2
+  - input: 'Alice and Bob work from 9 to 5 their local time on weekdays. They want to have a meeting some time this week.
+
+
+      The schedule for Alice''s week in their local time is as follows:
+
+      Monday: Booked at the following times: from 10:00 to 11:00
+
+      Tuesday: Booked at the following times: from 11:00 to 12:00
+
+      Wednesday: Booked at the following times: from 12:00 to 13:00
+
+
+      The schedule for Bob''s week in their local time is as follows:
+
+      Monday: Booked at the following times: from 9:00 to 10:00
+
+      Tuesday: Booked at the following times: from 10:00 to 11:00
+
+      Wednesday: Booked at the following times: from 11:00 to 12:00
+
+
+      Let X be the length of the longest meeting (in minutes) that can be scheduled if the meeting has to start on the hour or half hour. Also, let Y be number of possible options of such meetings. Compute X and Y and report them separated by a comma (e.g., 45, 3). If X is 0, report 0, 0.'
+    target: 60, 1
+  - input: 'Alice and Bob work from 9 to 5 their local time on weekdays. They want to have a meeting some time this week.
+
+
+      The schedule for Alice''s week in their local time is as follows:
+
+      Monday: Booked at the following times: from 9:00 to 10:00, from 14:00 to 15:00
+
+      Tuesday: Booked at the following times: from 10:00 to 11:00
+
+
+      The schedule for Bob''s week in their local time is as follows:
+
+      Monday: Booked at the following times: from 10:00 to 11:00, from 15:00 to 16:00
+
+      Tuesday: Booked at the following times: from 9:00 to 10:00
+
+
+      Let X be the length of the longest meeting (in minutes) that can be scheduled if the meeting has to start on the hour or half hour. Also, let Y be number of possible options of such meetings. Compute X and Y and report them separated by a comma (e.g., 45, 3). If X is 0, report 0, 0.'
+    target: 30, 2
+description: "Find meeting times between people with weekly schedules. Compute the longest meeting duration and number of possible meetings, reporting as 'X, Y' where X is length in minutes and Y is count."
+include: _fewshot_template_generate.yaml
+task: leaderboard_bbeh_temporal_sequence
+process_docs: !function utils.process_docs_temporal_sequence

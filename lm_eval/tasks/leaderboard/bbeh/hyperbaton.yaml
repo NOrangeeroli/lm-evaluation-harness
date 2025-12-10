@@ -1,0 +1,104 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: 'In a variant of English, we are given that the following sentences have correct adjective order:
+
+      (1) prismlike obnoxious bowl (2) repulsive guitar (3) spherical terrible guitar (4) archaic cyan earring (5) pyramidal key (6) cardboard vietnamese cup (7) steel flower pot (8) circular ruler (9) terrible shirt (10) old-fashioned shoe (11) russian pen (12) brand-new dog (13) circular banana (14) triangular pencil (15) new sunglasses (16) archaic clock (17) brand-new bag (18) magenta fire extinguisher (19) new ball (20) smoking box (21) japanese speaker (22) chinese bowl (23) triangular hammer (24) old-fashioned crimson pen (25) wool japanese spoon
+
+
+      In this variant of English, which of the following sentences (Options A-J) use the correct adjective order? If none of the sentences (Options A-J) use the correct adjective order, select option K. Select all that apply.
+
+      (A) midsize exercise paper congolese old-fashioned blue prismlike screwdriver
+
+      (B) normal-size drinking wool iranian new indigo ridiculous circular bicycle
+
+      (C) glass german old gray repulsive spherical lamp
+
+      (D) mysterious prismlike cloth mexican new pink snorkeling tiny car
+
+      (E) tiny whittling iron thai archaic magenta saw
+
+      (F) triangular nice wool nigerian old black hammer
+
+      (G) triangular iron egyptian archaic yellow hiking midsize box
+
+      (H) midsize driving paper bangladeshi brand-new pink obnoxious bird
+
+      (I) drinking wood chinese old-fashioned maroon spherical lovely scissors
+
+      (J) obnoxious spherical paper pakistani old-fashioned pink eating chair
+
+      (K) None of the above
+
+
+      Provide your final answer as a concatenation of all the correct choices. For example, if B and C have correct adjective order, then your final answer must be "BC".'
+    target: E
+  - input: 'In a variant of English, we are given that the following sentences have correct adjective order:
+
+      (1) brand-new leather ruler (2) congolese violet bag (3) pink bird (4) brand-new ball (5) red book (6) red wrench (7) rectangular ball (8) pyramidal good key (9) old paper chair (10) brand-new paper piano (11) prismlike umbrella (12) ethiopian pink drill (13) blue car (14) whittling bowl (15) indonesian green speaker (16) blue bottle (17) thai brown hammer (18) drinking normal-size guitar (19) smoking enormous canvas (20) square jar (21) new wrench (22) circular terrible banana (23) ancient ball (24) nigerian fire extinguisher (25) tiny bird
+
+
+      In this variant of English, which of the following sentences (Options A-J) use the correct adjective order? If none of the sentences (Options A-J) use the correct adjective order, select option K. Select all that apply.
+
+      (A) green ethiopian exercise tiny pyramidal awful paper cup
+
+      (B) old-fashioned cloth snorkeling small triangular awful turkish vase
+
+      (C) russian violet snorkeling little circular ridiculous cardboard shirt
+
+      (D) archaic steel drinking huge pyramidal repulsive nigerian blue hammer
+
+      (E) brand-new plastic snorkeling large spherical good candle
+
+      (F) crimson thai eating enormous square awful piano
+
+      (G) american pink snorkeling medium-size spherical wonderful fork
+
+      (H) pakistani white eating midsize circular awful cloth archaic chair
+
+      (I) cloth smoking medium-size circular silly teal vietnamese camera
+
+      (J) japanese driving huge prismlike obnoxious fiberglass old sunglasses
+
+      (K) None of the above
+
+
+      Provide your final answer as a concatenation of all the correct choices. For example, if B and C have correct adjective order, then your final answer must be "BC".'
+    target: E
+  - input: 'In a variant of English, we are given that the following sentences have correct adjective order:
+
+      (1) iron egyptian earring (2) new camera (3) large yellow necklace (4) cloth sunglasses (5) tiny cyan shoe (6) yellow key (7) snorkeling spherical screwdriver (8) congolese plate (9) small screwdriver (10) archaic terrible vase (11) brand-new fire extinguisher (12) little crimson pen (13) repulsive bowl (14) ancient jar (15) old wonderful trash can (16) fiberglass bangladeshi fork (17) american bottle (18) paper fire extinguisher (19) ridiculous car (20) teal hammer (21) archaic fire extinguisher (22) new spoon (23) walking plate (24) iranian spoon (25) teal ring
+
+
+      In this variant of English, which of the following sentences (Options A-J) use the correct adjective order? If none of the sentences (Options A-J) use the correct adjective order, select option K. Select all that apply.
+
+      (A) yellow enormous snorkeling circular rubber nigerian awful table
+
+      (B) obnoxious drinking circular glass congolese teal little wallet
+
+      (C) big green hiking rectangular wood russian repulsive jar
+
+      (D) repulsive walking circular wood congolese midsize blue chair
+
+      (E) new obnoxious drinking pyramidal iron mexican small black piano
+
+      (F) yellow hiking prismlike steel nigerian silly old sunglasses
+
+      (G) new wonderful eating triangular leather egyptian house
+
+      (H) large red snorkeling prismlike paper chinese silly archaic plate
+
+      (I) old nice typing spherical glass filipino blue dog
+
+      (J) old-fashioned terrible walking square plastic american massive knife
+
+      (K) None of the above
+
+
+      Provide your final answer as a concatenation of all the correct choices. For example, if B and C have correct adjective order, then your final answer must be "BC".'
+    target: G
+description: "Determine which sentences use correct adjective order in a variant of English. Given examples of correct adjective order, identify which of the provided sentences follow the same pattern. Answer with concatenated letters of all correct choices."
+include: _fewshot_template_yaml
+task: leaderboard_bbeh_hyperbaton
+process_docs: !function utils.process_docs_hyperbaton
+doc_to_choice: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"]

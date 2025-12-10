@@ -1,0 +1,29 @@
+group: leaderboard_bbeh
+task:
+  - leaderboard_bbeh_boardgame_qa
+  - leaderboard_bbeh_boolean_expressions
+  # - leaderboard_bbeh_buggy_tables
+  - leaderboard_bbeh_causal_understanding
+  - leaderboard_bbeh_disambiguation_qa
+  - leaderboard_bbeh_dyck_languages
+  - leaderboard_bbeh_geometric_shapes
+  - leaderboard_bbeh_hyperbaton
+  # - leaderboard_bbeh_linguini
+  - leaderboard_bbeh_movie_recommendation
+  # - leaderboard_bbeh_multistep_arithmetic
+  - leaderboard_bbeh_nycc
+  # - leaderboard_bbeh_object_counting
+  - leaderboard_bbeh_object_properties
+  - leaderboard_bbeh_sarc_triples
+  - leaderboard_bbeh_shuffled_objects
+  # - leaderboard_bbeh_spatial_reasoning
+  # - leaderboard_bbeh_sportqa
+  # - leaderboard_bbeh_temporal_sequence
+  # - leaderboard_bbeh_time_arithmetic
+  - leaderboard_bbeh_web_of_lies
+  # - leaderboard_bbeh_word_sorting
+  - leaderboard_bbeh_zebra_puzzles
+aggregate_metric_list:
+  - metric: acc_norm
+    aggregation: mean
+    weight_by_size: true

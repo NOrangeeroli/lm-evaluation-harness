@@ -1,0 +1,91 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: 'There are 5 people next to each other in a row in positions 1, 2, 3, 4, 5 who have the following characteristics.
+
+      Everyone is a different nationality: Chinese, American, British, French, German.
+
+      Everyone lives in a different colored house: red, blue, green, yellow, white.
+
+      Everyone drinks a different drink: coffee, tea, water, juice, milk.
+
+      Everyone has a different pet: dog, cat, bird, fish, rabbit.
+
+      Everyone drives a different car: Toyota, Honda, Ford, BMW, Mercedes.
+
+      Using the clues provided below, answer the question at the end.
+
+      Some of clues provided might be irrelevant to the puzzle.
+
+      Clue 1: The person who lives in the red house is the Chinese.
+
+      Clue 2: The person who drinks coffee is next to the person who has a dog.
+
+      Clue 3: The person who drives a Toyota is at position 1.
+
+      Clue 4: The person who lives in the blue house is immediately to the left of the person who drinks tea.
+
+      Clue 5: The person who has a cat is the person who drives a Honda.
+
+
+      Question: What position is the Chinese at?'
+    target: '3'
+  - input: 'There are 5 people next to each other in a row in positions 1, 2, 3, 4, 5 who have the following characteristics.
+
+      Everyone supports a different NBA team: Bulls, Lakers, Warriors, Knicks, Celtics.
+
+      Everyone likes a different food: pizza, pasta, burgers, sushi, tacos.
+
+      Everyone has a different profession: doctor, teacher, engineer, lawyer, artist.
+
+      Everyone owns a different car: Tesla, Audi, Lexus, BMW, Mercedes.
+
+      Using the clues provided below, answer the question at the end.
+
+      Some of clues provided might be irrelevant to the puzzle.
+
+      Clue 1: The person who supports the Bulls is at position 1.
+
+      Clue 2: The person who likes pizza is next to the doctor.
+
+      Clue 3: The person who drives a Tesla is immediately to the left of the person who likes pasta.
+
+      Clue 4: The teacher is at one of the ends.
+
+      Clue 5: The person who supports the Lakers is next to the person who likes burgers.
+
+
+      Question: What position is the person who likes sushi at?'
+    target: '4'
+  - input: 'There are 5 people next to each other in a row in positions 1, 2, 3, 4, 5 who have the following characteristics.
+
+      Everyone has a different name: Alice, Bob, Charlie, David, Eve.
+
+      Everyone likes a different sport: basketball, tennis, soccer, swimming, running.
+
+      Everyone reads a different genre: mystery, fantasy, sci-fi, romance, thriller.
+
+      Everyone drinks a different beverage: coffee, tea, juice, soda, water.
+
+      Using the clues provided below, answer the question at the end.
+
+      Some of clues provided might be irrelevant to the puzzle.
+
+      Clue 1: Alice is at position 2.
+
+      Clue 2: The person who likes basketball is next to the person who reads mystery books.
+
+      Clue 3: The person who drinks coffee is immediately to the left of Bob.
+
+      Clue 4: The person who likes tennis is at one of the ends.
+
+      Clue 5: Charlie is next to the person who drinks water.
+
+
+      Question: What position is the person who reads fantasy books at?'
+    target: '3'
+description: "Solve constraint satisfaction puzzles (like zebra puzzles) with people in positions having different characteristics (nationality, house color, drink, pet, car, etc.). Use clues to determine positions or characteristics."
+include: _fewshot_template_yaml
+task: leaderboard_bbeh_zebra_puzzles
+process_docs: !function utils.process_docs_zebra_puzzles
+doc_to_choice: ["1", "2", "3", "4", "5", "6", "7", "8", "9"]

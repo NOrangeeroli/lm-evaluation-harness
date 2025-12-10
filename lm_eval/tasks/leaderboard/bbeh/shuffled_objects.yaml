@@ -1,0 +1,62 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: 'Alice, Bob, Claire, Dave, Eve, Fred, and Gertrude are friends and avid readers who occasionally trade books. At the start of the semester, they each buy one new book: Alice gets Moby Dick, Bob gets The Odyssey, Claire gets Ulysses, Dave gets The Fellowship of the Ring, Eve gets Lolita, Fred gets The Pearl, and Gertrude gets Catch-22. As the semester proceeds, they start trading around the new books. First, Dave and Claire swap books. Then, Alice and Dave swap books. Then, Fred and Claire swap books. Finally, Bob and Eve swap books. At the end of the semester, Claire has
+
+      Options:
+
+      (A) Moby Dick
+
+      (B) The Odyssey
+
+      (C) Ulysses
+
+      (D) The Fellowship of the Ring
+
+      (E) Lolita
+
+      (F) The Pearl
+
+      (G) Catch-22'
+    target: (F)
+  - input: 'Alice, Bob, Claire, Dave, Eve, Fred, and Gertrude are dancers at a square dance. At the start of a song, they each have a partner: Alice is dancing with Rodrigo, Bob is dancing with Jamie, Claire is dancing with Patrick, Dave is dancing with Lola, Eve is dancing with Izzi, Fred is dancing with Melissa, and Gertrude is dancing with Karl. Throughout the song, the dancers often trade partners. First, Fred and Bob switch partners. Then, Fred and Claire switch partners. Then, Alice and Gertrude switch partners. Finally, Bob and Eve switch partners. At the end of the song, Bob is dancing with
+
+      Options:
+
+      (A) Rodrigo
+
+      (B) Jamie
+
+      (C) Patrick
+
+      (D) Lola
+
+      (E) Izzi
+
+      (F) Melissa
+
+      (G) Karl'
+    target: (E)
+  - input: 'Alice, Bob, Claire, Dave, Eve, Fred, and Gertrude are playing a game. At the start of the game, they are each holding a ball: Alice has a black ball, Bob has a brown ball, Claire has a yellow ball, Dave has a purple ball, Eve has a blue ball, Fred has a orange ball, and Gertrude has a pink ball. As the game progresses, pairs of players trade balls. First, Bob and Claire swap balls. Then, Alice and Dave swap balls. Then, Gertrude and Claire swap balls. Finally, Bob and Eve swap balls. At the end of the game, Bob has
+
+      Options:
+
+      (A) black ball
+
+      (B) brown ball
+
+      (C) yellow ball
+
+      (D) purple ball
+
+      (E) blue ball
+
+      (F) orange ball
+
+      (G) pink ball'
+    target: (C)
+description: "Track objects (books, partners, balls, etc.) as they are swapped between people through a sequence of trades. Determine what object a specific person has at the end of all swaps."
+include: _fewshot_template_yaml
+task: leaderboard_bbeh_shuffled_objects
+process_docs: !function utils.process_docs_shuffled_objects
+doc_to_choice: ["(A)", "(B)", "(C)", "(D)", "(E)", "(F)", "(G)"]

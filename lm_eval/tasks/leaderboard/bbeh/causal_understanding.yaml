@@ -1,0 +1,14 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: 'Question: John flipped the light switch. The light turned on immediately. Did John cause the light to turn on? Reply Yes or No based on the answer the majority of people would give. If you think people would be split roughly 50-50 between Yes and No then reply Ambiguous.'
+    target: 'Yes'
+  - input: 'Question: Mary planted a seed in the garden. A week later, a flower grew in that spot. Did Mary cause the flower to grow? Reply Yes or No based on the answer the majority of people would give. If you think people would be split roughly 50-50 between Yes and No then reply Ambiguous.'
+    target: 'Yes'
+  - input: 'Question: Tom thought about rain. Five minutes later, it started raining outside. Did Tom cause it to rain? Reply Yes or No based on the answer the majority of people would give. If you think people would be split roughly 50-50 between Yes and No then reply Ambiguous.'
+    target: 'No'
+description: "Judge whether one person caused an outcome in a scenario, based on what the majority of people would say. Answer Yes, No, or Ambiguous if opinions would be split."
+include: _fewshot_template_yaml
+task: leaderboard_bbeh_causal_understanding
+process_docs: !function utils.process_docs_causal_understanding
+doc_to_choice: ["Yes", "No", "Ambiguous"]

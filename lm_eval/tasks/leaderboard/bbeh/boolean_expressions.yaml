@@ -1,0 +1,35 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: 'From the following five expressions, only one evaluates to true. Which one is it?
+
+
+      (A) not (not (False) or (5 * 2 > 8)) and (True) or (False)
+      (B) not (not (True) and (3 + 4 <= 6)) or (False) and (True)
+      (C) not (not (not (False)) or (2 * 3 is greater than 5)) and (The capital of France is Paris.)
+      (D) (False) or (False) and (True) or not (True)
+      (E) not (not (True) or (False)) and (4 - 2 > 1)'
+    target: (E)
+  - input: 'From the following five expressions, only one evaluates to true. Which one is it?
+
+
+      (A) not (not (not (True)) or (6 / 2 <= 2)) and (False)
+      (B) (True) and (False) or not (True) and (False)
+      (C) not (not (False) and (5 + 3 > 7)) or (The capital of Spain is Madrid.)
+      (D) not (not (not (False)) and (8 - 4 is less than or equal to 3)) or (True)
+      (E) (False) or (False) and not (True)'
+    target: (D)
+  - input: 'From the following five expressions, only one evaluates to true. Which one is it?
+
+
+      (A) not (not (True) or (2 * 5 > 12)) and (False) or (True)
+      (B) (False) and (True) or not (False) and (True)
+      (C) not (not (not (True)) or (10 - 3 <= 6)) and (The capital of Germany is Berlin.)
+      (D) not (not (False) and (4 * 2 is greater than 7)) or (False)
+      (E) (True) or (False) and (False)'
+    target: (C)
+description: "Evaluate complex boolean expressions with nested negations, arithmetic comparisons, and factual statements. Identify which of five expressions evaluates to true."
+include: _fewshot_template_yaml
+task: leaderboard_bbeh_boolean_expressions
+process_docs: !function utils.process_docs_boolean_expressions
+doc_to_choice: ["(A)", "(B)", "(C)", "(D)", "(E)"]

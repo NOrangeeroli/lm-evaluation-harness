@@ -1,0 +1,188 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: 'Suppose we draw this SVG path element: M 0,0 L 10,0 L 10,10 L 0,10 Z. Out of the following shapes:
+
+      1. rectangle that is not a square and with no diagonals drawn
+
+      2. square with no diagonals drawn
+
+      3. triangle that is not a right triangle
+
+      4. right triangle
+
+      5. parallelogram that is not a rectangle and with no diagonals drawn
+
+      6. trapezoid with exactly one pair of parallel sides and with no diagonals drawn
+
+      7. irregular convex pentagon with no diagonals drawn
+
+      8. irregular concave pentagon with no diagonals drawn
+
+      9. regular pentagon with no diagonals drawn
+
+      10. regular hexagon with no diagonals drawn
+
+      which one(s) can be viewed when the lines in the SVG are visualized? Note that a shape with n sides should not necessarily be drawn by n lines; e.g., a triangle might be drawn by 4 lines, two of which collinear.
+
+      Options:
+
+      (A) only 2
+
+      (B) none of the above
+
+      (C) only 1
+
+      (D) 1 and 2
+
+      (E) only 3
+
+      (F) 2 and 3
+
+      (G) only 4
+
+      (H) 1 and 3
+
+      (I) 3 and 4
+
+      (J) only 5
+
+      (K) 2 and 5
+
+      (L) 1 and 5
+
+      (M) only 6
+
+      (N) 2 and 6
+
+      (O) 1 and 6
+
+      (P) 3 and 6
+
+      Coordinates have been rounded to 5 decimal places so ignore slight differences.'
+    target: (A)
+  - input: 'Suppose we draw this SVG path element: M 5,0 L 10,10 L 0,10 Z. Out of the following shapes:
+
+      1. rectangle that is not a square and with no diagonals drawn
+
+      2. square with no diagonals drawn
+
+      3. triangle that is not a right triangle
+
+      4. right triangle
+
+      5. parallelogram that is not a rectangle and with no diagonals drawn
+
+      6. trapezoid with exactly one pair of parallel sides and with no diagonals drawn
+
+      7. irregular convex pentagon with no diagonals drawn
+
+      8. irregular concave pentagon with no diagonals drawn
+
+      9. regular pentagon with no diagonals drawn
+
+      10. regular hexagon with no diagonals drawn
+
+      which one(s) can be viewed when the lines in the SVG are visualized? Note that a shape with n sides should not necessarily be drawn by n lines; e.g., a triangle might be drawn by 4 lines, two of which collinear.
+
+      Options:
+
+      (A) only 3
+
+      (B) none of the above
+
+      (C) only 4
+
+      (D) 3 and 4
+
+      (E) only 1
+
+      (F) 1 and 3
+
+      (G) only 2
+
+      (H) 2 and 3
+
+      (I) 1 and 4
+
+      (J) only 5
+
+      (K) 3 and 5
+
+      (L) 4 and 5
+
+      (M) only 6
+
+      (N) 3 and 6
+
+      (O) 4 and 6
+
+      (P) 1 and 6
+
+      Coordinates have been rounded to 5 decimal places so ignore slight differences.'
+    target: (C)
+  - input: 'Suppose we draw this SVG path element: M 0,5 A 5,5 0 1,1 10,5 A 5,5 0 1,1 0,5 Z. Out of the following shapes:
+
+      1. rectangle that is not a square and with no diagonals drawn
+
+      2. square with no diagonals drawn
+
+      3. triangle that is not a right triangle
+
+      4. right triangle
+
+      5. parallelogram that is not a rectangle and with no diagonals drawn
+
+      6. trapezoid with exactly one pair of parallel sides and with no diagonals drawn
+
+      7. irregular convex pentagon with no diagonals drawn
+
+      8. irregular concave pentagon with no diagonals drawn
+
+      9. regular pentagon with no diagonals drawn
+
+      10. regular hexagon with no diagonals drawn
+
+      which one(s) can be viewed when the lines in the SVG are visualized? Note that a shape with n sides should not necessarily be drawn by n lines; e.g., a triangle might be drawn by 4 lines, two of which collinear.
+
+      Options:
+
+      (A) only 1
+
+      (B) none of the above
+
+      (C) only 2
+
+      (D) 1 and 2
+
+      (E) only 3
+
+      (F) 1 and 3
+
+      (G) only 4
+
+      (H) 2 and 3
+
+      (I) 3 and 4
+
+      (J) only 5
+
+      (K) 1 and 5
+
+      (L) 2 and 5
+
+      (M) only 6
+
+      (N) 1 and 6
+
+      (O) 2 and 6
+
+      (P) 3 and 6
+
+      Coordinates have been rounded to 5 decimal places so ignore slight differences.'
+    target: (B)
+description: "Analyze SVG path elements to determine which geometric shapes can be viewed when the lines are visualized. Shapes include rectangles, squares, triangles, parallelograms, trapezoids, and various pentagons and hexagons."
+include: _fewshot_template_yaml
+task: leaderboard_bbeh_geometric_shapes
+process_docs: !function utils.process_docs_geometric_shapes
+doc_to_choice: ["(A)", "(B)", "(C)", "(D)", "(E)", "(F)", "(G)", "(H)", "(I)", "(J)", "(K)", "(L)", "(M)", "(N)", "(O)", "(P)"]

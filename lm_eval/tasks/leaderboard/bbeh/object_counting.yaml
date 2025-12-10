@@ -1,0 +1,13 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: My aunt has 5 apples. My uncle has 3 oranges. My uncle also has 2 bananas. My aunt also has 4 grapes. I have 6 pears. My uncle also has 1 peach. My brother has 7 apricots. My sister has 8 cherries. I also have 9 strawberries. I also have 10 blueberries. How many fruits are there in total?
+    target: '55'
+  - input: My mother has 12 cats. My father has 8 dogs. My father also has 5 birds. My mother also has 3 hamsters. I have 15 fish. My father also has 7 rabbits. My brother has 20 mice. My sister has 11 guinea pigs. I also have 9 turtles. I also have 6 lizards. How many animals are there in total?
+    target: '96'
+  - input: My teacher has 10 red balls. My friend has 5 blue balls. My friend also has 3 green balls. My teacher also has 7 yellow balls. I have 12 orange balls. My friend also has 4 purple balls. My classmate has 8 pink balls. My neighbor has 6 black balls. I also have 9 white balls. I also have 11 brown balls. How many balls are there in total?
+    target: '75'
+description: "Count objects (fruits, animals, items, etc.) from descriptions of what different people have. Sum totals or compute differences across categories, handling complex scenarios with additions and losses."
+include: _fewshot_template_generate.yaml
+task: leaderboard_bbeh_object_counting
+process_docs: !function utils.process_docs_object_counting

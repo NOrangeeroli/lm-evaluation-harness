@@ -1,0 +1,80 @@
+fewshot_config:
+  sampler: first_n
+  samples:
+  - input: 'Which option has more similar movies in terms of whether a group of people will like them or not?
+
+      Options:
+
+      (A) The Matrix, Inception, Interstellar, Blade Runner, The Terminator
+
+      (B) The Matrix, Inception, The Notebook, Blade Runner, The Terminator
+
+      (C) The Matrix, Inception, Interstellar, Blade Runner, Titanic
+
+      (D) The Matrix, Inception, Interstellar, The Notebook, The Terminator
+
+      (E) The Matrix, Inception, Interstellar, Blade Runner, The Terminator
+
+      (F) The Matrix, Blade Runner, Interstellar, The Terminator, The Notebook
+
+      (G) The Notebook, The Terminator, Interstellar, Blade Runner, The Matrix
+
+      (H) The Terminator, The Notebook, Blade Runner, The Matrix, Inception
+
+      (I) The Terminator, The Notebook, The Matrix, Blade Runner, Inception
+
+      (J) The Terminator, Blade Runner, The Matrix, Inception, The Notebook'
+    target: (A)
+  - input: 'Which option has more similar movies in terms of whether a group of people will like them or not?
+
+      Options:
+
+      (A) The Notebook, Titanic, Pretty Woman, When Harry Met Sally, Sleepless in Seattle
+
+      (B) The Notebook, Titanic, The Matrix, When Harry Met Sally, Sleepless in Seattle
+
+      (C) The Notebook, Titanic, Pretty Woman, The Terminator, Sleepless in Seattle
+
+      (D) The Notebook, The Matrix, Pretty Woman, When Harry Met Sally, Sleepless in Seattle
+
+      (E) The Notebook, Titanic, Pretty Woman, When Harry Met Sally, Blade Runner
+
+      (F) The Notebook, Blade Runner, Pretty Woman, When Harry Met Sally, Titanic
+
+      (G) Sleepless in Seattle, Blade Runner, Pretty Woman, When Harry Met Sally, The Notebook
+
+      (H) When Harry Met Sally, Blade Runner, Pretty Woman, The Notebook, Titanic
+
+      (I) When Harry Met Sally, Blade Runner, The Notebook, Pretty Woman, Titanic
+
+      (J) Blade Runner, Pretty Woman, The Notebook, Titanic, When Harry Met Sally'
+    target: (A)
+  - input: 'Which option has more similar movies in terms of whether a group of people will like them or not?
+
+      Options:
+
+      (A) The Shining, The Exorcist, Halloween, A Nightmare on Elm Street, Friday the 13th
+
+      (B) The Shining, The Exorcist, The Matrix, A Nightmare on Elm Street, Friday the 13th
+
+      (C) The Shining, The Exorcist, Halloween, The Notebook, Friday the 13th
+
+      (D) The Shining, Inception, Halloween, A Nightmare on Elm Street, Friday the 13th
+
+      (E) The Shining, The Exorcist, Halloween, A Nightmare on Elm Street, Titanic
+
+      (F) The Shining, Titanic, Halloween, A Nightmare on Elm Street, The Exorcist
+
+      (G) Friday the 13th, Titanic, Halloween, A Nightmare on Elm Street, The Shining
+
+      (H) A Nightmare on Elm Street, Titanic, Halloween, The Shining, The Exorcist
+
+      (I) A Nightmare on Elm Street, Titanic, The Shining, Halloween, The Exorcist
+
+      (J) Titanic, Halloween, The Shining, The Exorcist, A Nightmare on Elm Street'
+    target: (A)
+description: "Identify which option contains movies that are most similar in terms of whether a group of people will like them. Requires understanding movie preferences and similarity in audience appeal."
+include: _fewshot_template_yaml
+task: leaderboard_bbeh_movie_recommendation
+process_docs: !function utils.process_docs_movie_recommendation
+doc_to_choice: ["(A)", "(B)", "(C)", "(D)", "(E)", "(F)", "(G)", "(H)", "(I)", "(J)"]
