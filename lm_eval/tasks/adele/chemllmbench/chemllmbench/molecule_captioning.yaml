@@ -1,6 +1,6 @@
 include: ../../_adele_template_openended_bleu.yaml
 task: adele_chemllmbench_chemllmbench_molecule_captioning
 description: "ADeLe molecule_captioning task from ChemLLMBench benchmark (ChemLLMBench source)."
-process_docs: !function utils.process_docs_molecule_captioning
+process_docs: !function lm_eval.tasks.adele.utils.process_docs_molecule_captioning
 metadata:
   version: 1.0
