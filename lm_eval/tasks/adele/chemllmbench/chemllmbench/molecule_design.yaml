@@ -1,6 +1,6 @@
 include: ../../_adele_template_openended.yaml
 task: adele_chemllmbench_chemllmbench_molecule_design
 description: "ADeLe molecule_design task from ChemLLMBench benchmark (ChemLLMBench source)."
-process_docs: !function lm_eval.tasks.adele.utils.process_docs_molecule_design
+process_docs: !function utils.process_docs_molecule_design
 metadata:
   version: 1.0

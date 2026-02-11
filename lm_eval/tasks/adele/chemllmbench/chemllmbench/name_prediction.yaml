@@ -1,6 +1,6 @@
 include: ../../_adele_template_openended.yaml
 task: adele_chemllmbench_chemllmbench_name_prediction
 description: "ADeLe name_prediction task from ChemLLMBench benchmark (ChemLLMBench source)."
-process_docs: !function lm_eval.tasks.adele.utils.process_docs_name_prediction
+process_docs: !function utils.process_docs_name_prediction
 metadata:
   version: 1.0
