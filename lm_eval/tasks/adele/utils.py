@@ -1,0 +1,94 @@
+import datasets
+from functools import partial
+import numpy as np
+
+try:
+    import evaluate
+
+    bleu = evaluate.load("bleu")
+    # rouge = evaluate.load("rouge")
+    # bertscore = evaluate.load("bertscore")
+    # bleurt = evaluate.load("bleurt", "bleurt-base-512", module_type="metric")
+
+except (ModuleNotFoundError, ImportError):
+    raise ModuleNotFoundError(
+        "Please install evaluation metrics via pip install evaluate bert-score "
+        "rouge_score>=0.1.2 nltk absl-py "
+        "git+https://github.com/google-research/bleurt.git"
+    )
+except Exception as e:
+    raise RuntimeError(
+        f"Error loading evaluation metrics: {str(e)}. Please check your installation."
+    )
+
+
+
+
+def process_results_gen(doc, results):
+    pred, refs = [results[0]], [doc_to_target(doc)]
+
+    if len(refs[0]) < 1 or len(pred[0]) < 1:
+        return {
+            "bleu": np.NAN,
+           
+        }
+
+    try:
+        bleu_results = bleu.compute(predictions=pred, references=refs)
+    except Exception as e:
+        print(f"Bleu error: {e}")
+        bleu_results = {"bleu": np.NAN}
+
+    
+
+    if bleu_results["bleu"] == 0:
+        # Sometimes bleu is 0.0 and this breaks the stderr computation.
+        bleu_results["bleu"] += 1e-5
+
+    return {
+        "bleu": bleu_results["bleu"],
+    }
+
+
+
+def process_docs(dataset: datasets.Dataset, task_name: str = None) -> datasets.Dataset:
+    """
+    Filter the ADeLe dataset by the 'task' column to get only the rows
+    corresponding to the specific ADeLe task.
+    
+    Args:
+        dataset: The full ADeLe dataset from HuggingFace
+        task_name: The task name to filter by (e.g., "molecule_captioning", "biology")
+    
+    Returns:
+        Filtered dataset containing only examples for the specified task
+    """
+    if task_name is None:
+        # If no task name is provided, return the whole dataset
+        return dataset
+        
+    # Filter the dataset by the 'task' column
+    return dataset.filter(lambda example: example["task"] == task_name)
+
+
+def doc_to_target(doc: dict) -> str:
+    """
+    Extract the letter from groundtruth for MC tasks.
+    Groundtruth format is like "G. The answer text..."
+    Returns just the letter (e.g., "G").
+    """
+    groundtruth = str(doc.get("groundtruth", ""))
+    return groundtruth
+
+
+# Process docs functions for individual tasks
+process_docs_molecule_captioning = partial(process_docs, task_name="molecule_captioning")
+process_docs_molecule_design = partial(process_docs, task_name="molecule_design")
+process_docs_name_prediction = partial(process_docs, task_name="name_prediction")
+process_docs_reaction_prediction = partial(process_docs, task_name="reaction_prediction")
+process_docs_retrosynthesis = partial(process_docs, task_name="retrosynthesis")
+
+
+
+
+
