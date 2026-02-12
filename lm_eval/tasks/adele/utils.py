@@ -35,6 +35,8 @@ def process_results_gen(doc, results):
         }
 
     try:
+        print("pred: ", pred)
+        print("refs: ", refs)
         bleu_results = bleu.compute(predictions=pred, references=refs)
     except Exception as e:
         print(f"Bleu error: {e}")
