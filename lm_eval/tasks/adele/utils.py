@@ -321,6 +321,29 @@ process_docs_medcalcbench_severity = partial(
     process_docs, task_name="severity", benchmark_name="MedCalcBench"
 )
 
+# OmniMath tasks (single benchmark "OmniMath")
+process_docs_omnimath_algebra = partial(
+    process_docs, task_name="Algebra", benchmark_name="OmniMath"
+)
+process_docs_omnimath_applied_mathematics = partial(
+    process_docs, task_name="Applied Mathematics", benchmark_name="OmniMath"
+)
+process_docs_omnimath_calculus = partial(
+    process_docs, task_name="Calculus", benchmark_name="OmniMath"
+)
+process_docs_omnimath_discrete_mathematics = partial(
+    process_docs, task_name="Discrete Mathematics", benchmark_name="OmniMath"
+)
+process_docs_omnimath_geometry = partial(
+    process_docs, task_name="Geometry", benchmark_name="OmniMath"
+)
+process_docs_omnimath_number_theory = partial(
+    process_docs, task_name="Number Theory", benchmark_name="OmniMath"
+)
+process_docs_omnimath_precalculus = partial(
+    process_docs, task_name="Precalculus", benchmark_name="OmniMath"
+)
+
 
 
 

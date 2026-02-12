@@ -1,0 +1,6 @@
+include: ../../_adele_template_openended.yaml
+task: adele_omnimath_omnimath_calculus
+description: "ADeLe Calculus task from OmniMath benchmark (OmniMath source)."
+process_docs: !function utils.process_docs_omnimath_calculus
+metadata:
+  version: 1.0

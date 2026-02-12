@@ -1,0 +1,6 @@
+include: ../../_adele_template_openended.yaml
+task: adele_omnimath_omnimath_applied_mathematics
+description: "ADeLe Applied Mathematics task from OmniMath benchmark (OmniMath source)."
+process_docs: !function utils.process_docs_omnimath_applied_mathematics
+metadata:
+  version: 1.0

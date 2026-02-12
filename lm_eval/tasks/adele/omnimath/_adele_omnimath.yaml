@@ -1,0 +1,9 @@
+group: adele_omnimath
+task:
+  - adele_omnimath_omnimath_algebra
+  - adele_omnimath_omnimath_applied_mathematics
+  - adele_omnimath_omnimath_calculus
+  - adele_omnimath_omnimath_discrete_mathematics
+  - adele_omnimath_omnimath_geometry
+  - adele_omnimath_omnimath_number_theory
+  - adele_omnimath_omnimath_precalculus
