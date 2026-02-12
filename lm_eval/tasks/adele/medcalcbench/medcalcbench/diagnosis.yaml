@@ -1,0 +1,6 @@
+include: ../../_adele_template_openended.yaml
+task: adele_medcalcbench_medcalcbench_diagnosis
+description: "ADeLe diagnosis task from MedCalcBench benchmark (MedCalcBench source)."
+process_docs: !function utils.process_docs_medcalcbench_diagnosis
+metadata:
+  version: 1.0

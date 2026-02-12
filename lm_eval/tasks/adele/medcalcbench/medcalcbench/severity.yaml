@@ -1,0 +1,6 @@
+include: ../../_adele_template_openended.yaml
+task: adele_medcalcbench_medcalcbench_severity
+description: "ADeLe severity task from MedCalcBench benchmark (MedCalcBench source)."
+process_docs: !function utils.process_docs_medcalcbench_severity
+metadata:
+  version: 1.0

@@ -1,0 +1,6 @@
+include: ../../_adele_template_openended.yaml
+task: adele_medcalcbench_medcalcbench_risk
+description: "ADeLe risk task from MedCalcBench benchmark (MedCalcBench source)."
+process_docs: !function utils.process_docs_medcalcbench_risk
+metadata:
+  version: 1.0

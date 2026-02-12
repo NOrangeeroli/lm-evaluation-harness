@@ -55,24 +55,38 @@ def process_results_gen(doc, results):
 
 
 
-def process_docs(dataset: datasets.Dataset, task_name: str = None) -> datasets.Dataset:
+def process_docs(
+    dataset: datasets.Dataset,
+    task_name: str | None = None,
+    benchmark_name: str | None = None,
+) -> datasets.Dataset:
     """
-    Filter the ADeLe dataset by the 'task' column to get only the rows
-    corresponding to the specific ADeLe task.
+    Filter the ADeLe dataset by the 'task' (and optionally 'benchmark')
+    columns to get only the rows corresponding to the specific ADeLe task.
     
     Args:
         dataset: The full ADeLe dataset from HuggingFace
         task_name: The task name to filter by (e.g., "molecule_captioning", "biology")
+        benchmark_name: Optional benchmark name to filter by (e.g., "ChemLLMBench",
+            "MMLU-Pro"). When provided, both benchmark and task must match.
     
     Returns:
         Filtered dataset containing only examples for the specified task
     """
-    if task_name is None:
-        # If no task name is provided, return the whole dataset
+    if task_name is None and benchmark_name is None:
+        # If no filter is provided, return the whole dataset
         return dataset
-        
-    # Filter the dataset by the 'task' column
-    return dataset.filter(lambda example: example["task"] == task_name)
+
+    def _predicate(example: dict) -> bool:
+        ok = True
+        if task_name is not None:
+            ok = ok and example.get("task") == task_name
+        if benchmark_name is not None:
+            ok = ok and example.get("benchmark") == benchmark_name
+        return ok
+
+    # Filter the dataset by the specified columns
+    return dataset.filter(_predicate)
 
 
 def doc_to_target(doc: dict) -> str:
@@ -108,45 +122,134 @@ def doc_to_target_letter(doc: dict) -> str:
 
 
 # Process docs functions for individual tasks
-process_docs_molecule_captioning = partial(process_docs, task_name="molecule_captioning")
-process_docs_molecule_design = partial(process_docs, task_name="molecule_design")
-process_docs_name_prediction = partial(process_docs, task_name="name_prediction")
-process_docs_reaction_prediction = partial(process_docs, task_name="reaction_prediction")
-process_docs_retrosynthesis = partial(process_docs, task_name="retrosynthesis")
+process_docs_molecule_captioning = partial(
+    process_docs, task_name="molecule_captioning", benchmark_name="ChemLLMBench"
+)
+process_docs_molecule_design = partial(
+    process_docs, task_name="molecule_design", benchmark_name="ChemLLMBench"
+)
+process_docs_name_prediction = partial(
+    process_docs, task_name="name_prediction", benchmark_name="ChemLLMBench"
+)
+process_docs_reaction_prediction = partial(
+    process_docs, task_name="reaction_prediction", benchmark_name="ChemLLMBench"
+)
+process_docs_retrosynthesis = partial(
+    process_docs, task_name="retrosynthesis", benchmark_name="ChemLLMBench"
+)
 
 # AGIEval tasks
-process_docs_logiqa_en = partial(process_docs, task_name="LogiQA-en")
-process_docs_aqua_rat = partial(process_docs, task_name="AQuA-RAT")
-process_docs_lsat_ar = partial(process_docs, task_name="LSAT-AR")
-process_docs_lsat_lr = partial(process_docs, task_name="LSAT-LR")
-process_docs_lsat_rc = partial(process_docs, task_name="LSAT-RC")
-process_docs_sat_en = partial(process_docs, task_name="SAT-En")
-process_docs_sat_math = partial(process_docs, task_name="SAT-Math")
+process_docs_logiqa_en = partial(
+    process_docs, task_name="LogiQA-en", benchmark_name="Civil Service Examination"
+)
+process_docs_aqua_rat = partial(
+    process_docs, task_name="AQuA-RAT", benchmark_name="GRE & GMAT"
+)
+process_docs_lsat_ar = partial(
+    process_docs, task_name="LSAT-AR", benchmark_name="LSAT"
+)
+process_docs_lsat_lr = partial(
+    process_docs, task_name="LSAT-LR", benchmark_name="LSAT"
+)
+process_docs_lsat_rc = partial(
+    process_docs, task_name="LSAT-RC", benchmark_name="LSAT"
+)
+process_docs_sat_en = partial(
+    process_docs, task_name="SAT-En", benchmark_name="SAT"
+)
+process_docs_sat_math = partial(
+    process_docs, task_name="SAT-Math", benchmark_name="SAT"
+)
 
 # LiveBench tasks
-process_docs_livebench_cta = partial(process_docs, task_name="cta")
-process_docs_livebench_connections = partial(process_docs, task_name="connections")
-process_docs_livebench_amps_hard = partial(process_docs, task_name="AMPS_Hard")
-process_docs_livebench_math_comp = partial(process_docs, task_name="math_comp")
-process_docs_livebench_olympiad = partial(process_docs, task_name="olympiad")
-process_docs_livebench_spatial = partial(process_docs, task_name="spatial")
-process_docs_livebench_zebra_puzzle = partial(process_docs, task_name="zebra_puzzle")
+process_docs_livebench_cta = partial(
+    process_docs, task_name="cta", benchmark_name="Data Analysis"
+)
+process_docs_livebench_connections = partial(
+    process_docs, task_name="connections", benchmark_name="Language"
+)
+process_docs_livebench_amps_hard = partial(
+    process_docs, task_name="AMPS_Hard", benchmark_name="Math"
+)
+process_docs_livebench_math_comp = partial(
+    process_docs, task_name="math_comp", benchmark_name="Math"
+)
+process_docs_livebench_olympiad = partial(
+    process_docs, task_name="olympiad", benchmark_name="Math"
+)
+process_docs_livebench_spatial = partial(
+    process_docs, task_name="spatial", benchmark_name="Reasoning"
+)
+process_docs_livebench_zebra_puzzle = partial(
+    process_docs, task_name="zebra_puzzle", benchmark_name="Reasoning"
+)
 
-# MMLU-Pro tasks
-process_docs_mmlu_pro_biology = partial(process_docs, task_name="biology")
-process_docs_mmlu_pro_business = partial(process_docs, task_name="business")
-process_docs_mmlu_pro_chemistry = partial(process_docs, task_name="chemistry")
-process_docs_mmlu_pro_computer_science = partial(process_docs, task_name="computer science")
-process_docs_mmlu_pro_economics = partial(process_docs, task_name="economics")
-process_docs_mmlu_pro_engineering = partial(process_docs, task_name="engineering")
-process_docs_mmlu_pro_health = partial(process_docs, task_name="health")
-process_docs_mmlu_pro_history = partial(process_docs, task_name="history")
-process_docs_mmlu_pro_law = partial(process_docs, task_name="law")
-process_docs_mmlu_pro_math = partial(process_docs, task_name="math")
-process_docs_mmlu_pro_other = partial(process_docs, task_name="other")
-process_docs_mmlu_pro_philosophy = partial(process_docs, task_name="philosophy")
-process_docs_mmlu_pro_physics = partial(process_docs, task_name="physics")
-process_docs_mmlu_pro_psychology = partial(process_docs, task_name="psychology")
+# MMLU-Pro tasks (single benchmark "MMLU-Pro")
+process_docs_mmlu_pro_biology = partial(
+    process_docs, task_name="biology", benchmark_name="MMLU-Pro"
+)
+process_docs_mmlu_pro_business = partial(
+    process_docs, task_name="business", benchmark_name="MMLU-Pro"
+)
+process_docs_mmlu_pro_chemistry = partial(
+    process_docs, task_name="chemistry", benchmark_name="MMLU-Pro"
+)
+process_docs_mmlu_pro_computer_science = partial(
+    process_docs, task_name="computer science", benchmark_name="MMLU-Pro"
+)
+process_docs_mmlu_pro_economics = partial(
+    process_docs, task_name="economics", benchmark_name="MMLU-Pro"
+)
+process_docs_mmlu_pro_engineering = partial(
+    process_docs, task_name="engineering", benchmark_name="MMLU-Pro"
+)
+process_docs_mmlu_pro_health = partial(
+    process_docs, task_name="health", benchmark_name="MMLU-Pro"
+)
+process_docs_mmlu_pro_history = partial(
+    process_docs, task_name="history", benchmark_name="MMLU-Pro"
+)
+process_docs_mmlu_pro_law = partial(
+    process_docs, task_name="law", benchmark_name="MMLU-Pro"
+)
+process_docs_mmlu_pro_math = partial(
+    process_docs, task_name="math", benchmark_name="MMLU-Pro"
+)
+process_docs_mmlu_pro_other = partial(
+    process_docs, task_name="other", benchmark_name="MMLU-Pro"
+)
+process_docs_mmlu_pro_philosophy = partial(
+    process_docs, task_name="philosophy", benchmark_name="MMLU-Pro"
+)
+process_docs_mmlu_pro_physics = partial(
+    process_docs, task_name="physics", benchmark_name="MMLU-Pro"
+)
+process_docs_mmlu_pro_psychology = partial(
+    process_docs, task_name="psychology", benchmark_name="MMLU-Pro"
+)
+
+# MedCalcBench tasks (single benchmark "MedCalcBench")
+process_docs_medcalcbench_date = partial(
+    process_docs, task_name="date", benchmark_name="MedCalcBench"
+)
+process_docs_medcalcbench_diagnosis = partial(
+    process_docs, task_name="diagnosis", benchmark_name="MedCalcBench"
+)
+process_docs_medcalcbench_dosage = partial(
+    process_docs, task_name="dosage", benchmark_name="MedCalcBench"
+)
+process_docs_medcalcbench_lab = partial(
+    process_docs, task_name="lab", benchmark_name="MedCalcBench"
+)
+process_docs_medcalcbench_physical = partial(
+    process_docs, task_name="physical", benchmark_name="MedCalcBench"
+)
+process_docs_medcalcbench_risk = partial(
+    process_docs, task_name="risk", benchmark_name="MedCalcBench"
+)
+process_docs_medcalcbench_severity = partial(
+    process_docs, task_name="severity", benchmark_name="MedCalcBench"
+)
 
 
 

@@ -1,0 +1,6 @@
+include: ../../_adele_template_openended.yaml
+task: adele_medcalcbench_medcalcbench_dosage
+description: "ADeLe dosage task from MedCalcBench benchmark (MedCalcBench source)."
+process_docs: !function utils.process_docs_medcalcbench_dosage
+metadata:
+  version: 1.0

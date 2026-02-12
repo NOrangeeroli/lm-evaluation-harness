@@ -1,0 +1,9 @@
+group: adele_medcalcbench
+task:
+  - adele_medcalcbench_medcalcbench_date
+  - adele_medcalcbench_medcalcbench_diagnosis
+  - adele_medcalcbench_medcalcbench_dosage
+  - adele_medcalcbench_medcalcbench_lab
+  - adele_medcalcbench_medcalcbench_physical
+  - adele_medcalcbench_medcalcbench_risk
+  - adele_medcalcbench_medcalcbench_severity
