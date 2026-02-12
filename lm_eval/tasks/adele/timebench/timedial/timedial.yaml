@@ -1,0 +1,7 @@
+include: ../../_adele_template_mc.yaml
+task: adele_timebench_timedial_timedial
+description: "ADeLe TimeDial task from TimeDial benchmark (TimeBench source)."
+process_docs: !function utils.process_docs_timebench_timedial
+metadata:
+  version: 1.0
+

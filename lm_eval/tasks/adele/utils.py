@@ -382,6 +382,49 @@ process_docs_omnimath_precalculus = partial(
     process_docs, task_name="Precalculus", benchmark_name="OmniMath"
 )
 
+# SciBench tasks (single benchmark "SciBench")
+process_docs_scibench_chemistry = partial(
+    process_docs, task_name="Chemistry", benchmark_name="SciBench"
+)
+process_docs_scibench_math = partial(
+    process_docs, task_name="Math", benchmark_name="SciBench"
+)
+process_docs_scibench_physics = partial(
+    process_docs, task_name="Physics", benchmark_name="SciBench"
+)
+
+# TimeBench tasks
+process_docs_timebench_date_arithmetic = partial(
+    process_docs, task_name="Date Arithmetic", benchmark_name="Date Arithmetic"
+)
+process_docs_timebench_mctaco = partial(
+    process_docs, task_name="MCTACO", benchmark_name="MCTACO"
+)
+process_docs_timebench_menatqa_counterfactual = partial(
+    process_docs, task_name="MenatQA-Counterfactual", benchmark_name="MenatQA"
+)
+process_docs_timebench_menatqa_order = partial(
+    process_docs, task_name="MenatQA-Order", benchmark_name="MenatQA"
+)
+process_docs_timebench_menatqa_scope = partial(
+    process_docs, task_name="MenatQA-Scope", benchmark_name="MenatQA"
+)
+process_docs_timebench_tempreason_l2 = partial(
+    process_docs, task_name="TempReason-L2", benchmark_name="TempReason"
+)
+process_docs_timebench_tempreason_l3 = partial(
+    process_docs, task_name="TempReason-L3", benchmark_name="TempReason"
+)
+process_docs_timebench_timedial = partial(
+    process_docs, task_name="TimeDial", benchmark_name="TimeDial"
+)
+process_docs_timebench_timeqa_explicit = partial(
+    process_docs, task_name="TimeQA-explicit", benchmark_name="TimeQA"
+)
+process_docs_timebench_timeqa_implicit = partial(
+    process_docs, task_name="TimeQA-implicit", benchmark_name="TimeQA"
+)
+
 
 
 

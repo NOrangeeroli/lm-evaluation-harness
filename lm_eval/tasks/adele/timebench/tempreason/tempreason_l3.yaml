@@ -1,0 +1,7 @@
+include: ../../_adele_template_openended.yaml
+task: adele_timebench_tempreason_tempreason_l3
+description: "ADeLe TempReason-L3 task from TempReason benchmark (TimeBench source)."
+process_docs: !function utils.process_docs_timebench_tempreason_l3
+metadata:
+  version: 1.0
+

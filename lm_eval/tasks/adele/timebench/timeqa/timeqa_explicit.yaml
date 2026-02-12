@@ -1,0 +1,7 @@
+include: ../../_adele_template_openended.yaml
+task: adele_timebench_timeqa_timeqa_explicit
+description: "ADeLe TimeQA-explicit task from TimeQA benchmark (TimeBench source)."
+process_docs: !function utils.process_docs_timebench_timeqa_explicit
+metadata:
+  version: 1.0
+

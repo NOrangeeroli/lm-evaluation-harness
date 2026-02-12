@@ -1,0 +1,6 @@
+group: adele_scibench
+task:
+  - adele_scibench_scibench_chemistry
+  - adele_scibench_scibench_math
+  - adele_scibench_scibench_physics
+

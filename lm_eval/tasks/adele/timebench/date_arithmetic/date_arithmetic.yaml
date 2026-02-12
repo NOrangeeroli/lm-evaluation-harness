@@ -1,0 +1,7 @@
+include: ../../_adele_template_openended.yaml
+task: adele_timebench_date_arithmetic_date_arithmetic
+description: "ADeLe Date Arithmetic task from Date Arithmetic benchmark (TimeBench source)."
+process_docs: !function utils.process_docs_timebench_date_arithmetic
+metadata:
+  version: 1.0
+

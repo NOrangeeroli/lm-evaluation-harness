@@ -1,0 +1,7 @@
+include: ../../_adele_template_openended.yaml
+task: adele_timebench_menatqa_menatqa_scope
+description: "ADeLe MenatQA-Scope task from MenatQA benchmark (TimeBench source)."
+process_docs: !function utils.process_docs_timebench_menatqa_scope
+metadata:
+  version: 1.0
+

@@ -1,0 +1,13 @@
+group: adele_timebench
+task:
+  - adele_timebench_date_arithmetic_date_arithmetic
+  - adele_timebench_mctaco_mctaco
+  - adele_timebench_menatqa_menatqa_counterfactual
+  - adele_timebench_menatqa_menatqa_order
+  - adele_timebench_menatqa_menatqa_scope
+  - adele_timebench_tempreason_tempreason_l2
+  - adele_timebench_tempreason_tempreason_l3
+  - adele_timebench_timedial_timedial
+  - adele_timebench_timeqa_timeqa_explicit
+  - adele_timebench_timeqa_timeqa_implicit
+

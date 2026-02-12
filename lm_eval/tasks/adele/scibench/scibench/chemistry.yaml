@@ -1,0 +1,8 @@
+include: ../../_adele_template_openended.yaml
+task: adele_scibench_scibench_chemistry
+description: "ADeLe Chemistry task from SciBench benchmark (SciBench source)."
+process_docs: !function utils.process_docs_scibench_chemistry
+process_results: !function utils.process_results_math
+metadata:
+  version: 1.0
+

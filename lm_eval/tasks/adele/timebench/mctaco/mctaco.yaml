@@ -1,0 +1,7 @@
+include: ../../_adele_template_mc.yaml
+task: adele_timebench_mctaco_mctaco
+description: "ADeLe MCTACO task from MCTACO benchmark (TimeBench source)."
+process_docs: !function utils.process_docs_timebench_mctaco
+metadata:
+  version: 1.0
+

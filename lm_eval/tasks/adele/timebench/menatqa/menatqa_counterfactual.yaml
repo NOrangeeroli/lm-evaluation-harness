@@ -1,0 +1,7 @@
+include: ../../_adele_template_openended.yaml
+task: adele_timebench_menatqa_menatqa_counterfactual
+description: "ADeLe MenatQA-Counterfactual task from MenatQA benchmark (TimeBench source)."
+process_docs: !function utils.process_docs_timebench_menatqa_counterfactual
+metadata:
+  version: 1.0
+
