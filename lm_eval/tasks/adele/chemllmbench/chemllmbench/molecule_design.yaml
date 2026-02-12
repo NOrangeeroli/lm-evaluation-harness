@@ -2,5 +2,11 @@ include: ../../_adele_template_openended.yaml
 task: adele_chemllmbench_chemllmbench_molecule_design
 description: "ADeLe molecule_design task from ChemLLMBench benchmark (ChemLLMBench source)."
 process_docs: !function utils.process_docs_molecule_design
+num_fewshot: 2
+fewshot_config:
+  sampler: first_n
+  samples:
+    - prompt: "Molecular requirements description: The molecule is a diamine and an aldehyde. It has a role as a metabolite and an antifouling biocide. It derives from a hydride of a 1,3,5-triazine.\n"
+      groundtruth: "CSc1nc(NCCC=O)nc(NC(C)(C)C)n1"
 metadata:
   version: 1.0
