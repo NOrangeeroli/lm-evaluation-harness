@@ -54,6 +54,76 @@ def process_results_gen(doc, results):
     }
 
 
+def _extract_first_float(text: str) -> float | None:
+    """
+    Extract the first floating-point number from a string.
+    Returns None if no number is found.
+    """
+    if not isinstance(text, str):
+        text = str(text)
+    # Remove thousands separators if present
+    cleaned = text.replace(",", "")
+    match = re.search(r"-?\d+(?:\.\d+)?", cleaned)
+    if not match:
+        return None
+    try:
+        return float(match.group(0))
+    except ValueError:
+        return None
+
+
+def process_results_medcalcbench(doc, results):
+    """
+    Custom metric for MedCalcBench tasks.
+
+    Groundtruth sometimes contains a tolerance range, e.g.:
+        "The groundtruth is 46.667 but anything between 44.33365 and 49.00035
+         can be counted as correct to have an error tolerance of 5%"
+
+    In that case we:
+      - extract the numeric prediction from the model output,
+      - extract the lower/upper bounds from the groundtruth,
+      - return exact_match = 1.0 if prediction is within [lower, upper], else 0.0.
+
+    If the groundtruth does not match this template, we fall back to a
+    string-based exact match (loosely normalized).
+    """
+    if not results:
+        return {"exact_match": 0.0}
+
+    pred_text = str(results[0])
+    gt_text = str(doc.get("groundtruth", ""))
+
+    # Try to parse a numeric prediction
+    pred_val = _extract_first_float(pred_text)
+
+    # Try to find "between <lower> and <upper>" pattern in groundtruth
+    range_match = re.search(
+        r"between\s+(-?\d+(?:\.\d+)?)\s+and\s+(-?\d+(?:\.\d+)?)", gt_text.replace(",", "")
+    )
+
+    if range_match and pred_val is not None:
+        try:
+            lower = float(range_match.group(1))
+            upper = float(range_match.group(2))
+            in_range = lower <= pred_val <= upper
+            return {"exact_match": 1.0 if in_range else 0.0}
+        except ValueError:
+            # If parsing fails for some reason, fall back to string match
+            pass
+
+    # Fallback: approximate string-based exact match, mirroring template behavior
+    def _normalize(s: str) -> str:
+        s = s.strip().lower()
+        # Remove trailing period and common punctuation / escapes used in regexes_to_ignore
+        s = re.sub(r"[\\.,\"\\n]", "", s)
+        return s
+
+    return {
+        "exact_match": 1.0 if _normalize(pred_text) == _normalize(gt_text) else 0.0
+    }
+
+
 
 def process_docs(
     dataset: datasets.Dataset,
@@ -76,7 +146,7 @@ def process_docs(
     if task_name is None and benchmark_name is None:
         # If no filter is provided, return the whole dataset
         return dataset
-
+        
     def _predicate(example: dict) -> bool:
         ok = True
         if task_name is not None:

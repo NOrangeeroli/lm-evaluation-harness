@@ -2,5 +2,6 @@ include: ../../_adele_template_openended.yaml
 task: adele_medcalcbench_medcalcbench_physical
 description: "ADeLe physical task from MedCalcBench benchmark (MedCalcBench source)."
 process_docs: !function utils.process_docs_medcalcbench_physical
+process_results: !function utils.process_results_medcalcbench
 metadata:
   version: 1.0

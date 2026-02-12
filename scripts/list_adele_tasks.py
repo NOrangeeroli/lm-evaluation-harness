@@ -17,7 +17,7 @@ DEFAULT_CSV = (
 
 def load_source_benchmark_tasks(
     csv_path: Path,
-) -> dict[tuple[str, str, str], dict[str, str]]:
+) -> dict[tuple[str, str, str], dict[str, str | int]]:
     """
     Load source-benchmark-task combinations, their answer formats,
     and one example prompt/groundtruth pair from CSV.
@@ -28,9 +28,10 @@ def load_source_benchmark_tasks(
             "answer_format": str,
             "prompt": str,
             "groundtruth": str,
+            "count": int,
         }
     """
-    task_data: dict[tuple[str, str, str], dict[str, str]] = {}
+    task_data: dict[tuple[str, str, str], dict[str, str | int]] = {}
     
     with csv_path.open(newline="", encoding="utf-8") as handle:
         reader = csv.DictReader(handle)
@@ -55,17 +56,21 @@ def load_source_benchmark_tasks(
                 continue
             
             key = (source, benchmark, task)
-            # Store answer_format and the first non-empty example we see
+            # Store answer_format, a running count, and the first non-empty example we see
             if key not in task_data:
                 task_data[key] = {
                     "answer_format": answer_format,
                     "prompt": prompt,
                     "groundtruth": groundtruth,
+                    "count": 1,
                 }
             else:
+                info = task_data[key]
+                # Increment count
+                info["count"] = int(info.get("count", 0)) + 1
+
                 # If we already saw this key but don't yet have a prompt/groundtruth,
                 # backfill from this row if available.
-                info = task_data[key]
                 if not info.get("prompt") and prompt:
                     info["prompt"] = prompt
                 if not info.get("groundtruth") and groundtruth:
@@ -123,8 +128,9 @@ def main() -> None:
                 answer_format = info.get("answer_format", "")
                 prompt = info.get("prompt", "")
                 groundtruth = info.get("groundtruth", "")
+                count = int(info.get("count", 0))
 
-                print(f"    - {source} - {benchmark} - {task}: {answer_format}")
+                print(f"    - {source} - {benchmark} - {task}: {answer_format} (n={count})")
 
                 # Optionally print one example question-groundtruth pair if available
                 if (not args.no_examples) and (prompt or groundtruth):
