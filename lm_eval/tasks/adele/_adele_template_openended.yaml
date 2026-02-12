@@ -12,7 +12,7 @@ filter_list:
   - name: "extract-answer"
     filter:
       - function: "regex"
-        regex_pattern: "(?<=Thus, the correct answer is: )(.*?)(?=\\.|$|\\n)"
+        regex_pattern: "(?<=Thus, the correct answer is: )(.*)$"
       - function: "take_first"
 metric_list:
   - metric: exact_match
