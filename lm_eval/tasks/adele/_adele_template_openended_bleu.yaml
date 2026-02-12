@@ -5,10 +5,10 @@ doc_to_text: "{{prompt}}"
 doc_to_target: "{{groundtruth}}"
 process_results: !function utils.process_results_gen
 generation_kwargs:
-  max_gen_toks: 40000
+  max_gen_toks: 4096
   until:
     - "</s>"
-    - "|<end_of_text|>"
+    - "<|im_end|>"
 num_fewshot: 0
 filter_list:
   - name: "extract-answer"

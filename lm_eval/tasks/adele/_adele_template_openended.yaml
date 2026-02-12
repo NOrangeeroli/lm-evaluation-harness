@@ -4,10 +4,10 @@ test_split: train
 doc_to_text: "{{prompt}}"
 doc_to_target: "{{groundtruth}}"
 generation_kwargs:
-  max_gen_toks: 40000
+  max_gen_toks: 4096
   until:
     - "</s>"
-    - "\n\n"
+    - "<|im_end|>"
 num_fewshot: 0
 filter_list:
   - name: "extract-answer"
