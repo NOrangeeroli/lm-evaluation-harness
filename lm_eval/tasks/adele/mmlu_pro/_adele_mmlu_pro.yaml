@@ -1,0 +1,16 @@
+group: adele_mmlu_pro
+task:
+  - adele_mmlu_pro_mmlu_pro_biology
+  - adele_mmlu_pro_mmlu_pro_business
+  - adele_mmlu_pro_mmlu_pro_chemistry
+  - adele_mmlu_pro_mmlu_pro_computer_science
+  - adele_mmlu_pro_mmlu_pro_economics
+  - adele_mmlu_pro_mmlu_pro_engineering
+  - adele_mmlu_pro_mmlu_pro_health
+  - adele_mmlu_pro_mmlu_pro_history
+  - adele_mmlu_pro_mmlu_pro_law
+  - adele_mmlu_pro_mmlu_pro_math
+  - adele_mmlu_pro_mmlu_pro_other
+  - adele_mmlu_pro_mmlu_pro_philosophy
+  - adele_mmlu_pro_mmlu_pro_physics
+  - adele_mmlu_pro_mmlu_pro_psychology

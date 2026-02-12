@@ -1,0 +1,6 @@
+include: ../../_adele_template_mc.yaml
+task: adele_mmlu_pro_mmlu_pro_chemistry
+description: "ADeLe chemistry task from MMLU-Pro benchmark (MMLU-Pro source)."
+process_docs: !function utils.process_docs_mmlu_pro_chemistry
+metadata:
+  version: 1.0

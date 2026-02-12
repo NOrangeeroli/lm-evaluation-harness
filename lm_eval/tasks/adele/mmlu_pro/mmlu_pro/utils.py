@@ -1,0 +1,16 @@
+from lm_eval.tasks.adele.utils import (
+    process_docs_mmlu_pro_biology,
+    process_docs_mmlu_pro_business,
+    process_docs_mmlu_pro_chemistry,
+    process_docs_mmlu_pro_computer_science,
+    process_docs_mmlu_pro_economics,
+    process_docs_mmlu_pro_engineering,
+    process_docs_mmlu_pro_health,
+    process_docs_mmlu_pro_history,
+    process_docs_mmlu_pro_law,
+    process_docs_mmlu_pro_math,
+    process_docs_mmlu_pro_other,
+    process_docs_mmlu_pro_philosophy,
+    process_docs_mmlu_pro_physics,
+    process_docs_mmlu_pro_psychology,
+)

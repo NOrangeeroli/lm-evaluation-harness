@@ -132,6 +132,22 @@ process_docs_livebench_olympiad = partial(process_docs, task_name="olympiad")
 process_docs_livebench_spatial = partial(process_docs, task_name="spatial")
 process_docs_livebench_zebra_puzzle = partial(process_docs, task_name="zebra_puzzle")
 
+# MMLU-Pro tasks
+process_docs_mmlu_pro_biology = partial(process_docs, task_name="biology")
+process_docs_mmlu_pro_business = partial(process_docs, task_name="business")
+process_docs_mmlu_pro_chemistry = partial(process_docs, task_name="chemistry")
+process_docs_mmlu_pro_computer_science = partial(process_docs, task_name="computer science")
+process_docs_mmlu_pro_economics = partial(process_docs, task_name="economics")
+process_docs_mmlu_pro_engineering = partial(process_docs, task_name="engineering")
+process_docs_mmlu_pro_health = partial(process_docs, task_name="health")
+process_docs_mmlu_pro_history = partial(process_docs, task_name="history")
+process_docs_mmlu_pro_law = partial(process_docs, task_name="law")
+process_docs_mmlu_pro_math = partial(process_docs, task_name="math")
+process_docs_mmlu_pro_other = partial(process_docs, task_name="other")
+process_docs_mmlu_pro_philosophy = partial(process_docs, task_name="philosophy")
+process_docs_mmlu_pro_physics = partial(process_docs, task_name="physics")
+process_docs_mmlu_pro_psychology = partial(process_docs, task_name="psychology")
+
 
 
 

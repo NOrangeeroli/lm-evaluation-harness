@@ -1,0 +1,6 @@
+include: ../../_adele_template_mc.yaml
+task: adele_mmlu_pro_mmlu_pro_computer_science
+description: "ADeLe computer science task from MMLU-Pro benchmark (MMLU-Pro source)."
+process_docs: !function utils.process_docs_mmlu_pro_computer_science
+metadata:
+  version: 1.0
