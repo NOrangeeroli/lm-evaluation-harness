@@ -1,7 +1,7 @@
 dataset_path: CFI-Kinds-of-Intelligence/ADeLe_battery_v1dot0
 output_type: generate_until
 test_split: train
-doc_to_text: "{{description}}\n{{prompt}}\nEnd your answer with <EOT>."
+doc_to_text: "{{prompt}}\nEnd your answer with <EOT>."
 doc_to_target: "{{groundtruth}}"
 generation_kwargs:
   max_gen_toks: 2048
