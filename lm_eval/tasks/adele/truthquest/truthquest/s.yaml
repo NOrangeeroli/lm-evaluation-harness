@@ -1,0 +1,6 @@
+include: ../../_adele_template_mc.yaml
+task: adele_truthquest_truthquest_s
+description: "ADeLe S task from TruthQuest benchmark (TruthQuest source)."
+process_docs: !function utils.process_docs_truthquest_s
+metadata:
+  version: 1.0

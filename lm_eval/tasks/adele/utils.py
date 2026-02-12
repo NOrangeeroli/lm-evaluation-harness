@@ -426,6 +426,17 @@ process_docs_timebench_timeqa_implicit = partial(
     process_docs, task_name="TimeQA-implicit", benchmark_name="TimeQA"
 )
 
+# TruthQuest tasks (single benchmark "TruthQuest")
+process_docs_truthquest_e = partial(
+    process_docs, task_name="E", benchmark_name="TruthQuest"
+)
+process_docs_truthquest_i = partial(
+    process_docs, task_name="I", benchmark_name="TruthQuest"
+)
+process_docs_truthquest_s = partial(
+    process_docs, task_name="S", benchmark_name="TruthQuest"
+)
+
 
 
 
