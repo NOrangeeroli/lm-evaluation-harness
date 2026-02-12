@@ -152,6 +152,7 @@ def process_results_math(doc, results):
 
     try:
         ok = verify(gold=parse(gt_text), target=parse(pred_text))
+        ok = ok or pred_text == gt_text
     except Exception as e:
         # If parsing or verification fails, treat as incorrect but log the error.
         print(f"math_verify error for OmniMath: {e}")
