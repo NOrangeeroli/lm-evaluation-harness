@@ -2,5 +2,6 @@ include: ../../_adele_template_openended.yaml
 task: adele_omnimath_omnimath_precalculus
 description: "ADeLe Precalculus task from OmniMath benchmark (OmniMath source)."
 process_docs: !function utils.process_docs_omnimath_precalculus
+process_results: !function utils.process_results_math
 metadata:
   version: 1.0

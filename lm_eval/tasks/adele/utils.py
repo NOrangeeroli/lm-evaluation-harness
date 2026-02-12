@@ -124,6 +124,44 @@ def process_results_medcalcbench(doc, results):
     }
 
 
+def process_results_math(doc, results):
+    """
+    Custom metric for OmniMath tasks using math_verify.
+
+    We interpret both the model prediction and the groundtruth as math
+    expressions / solutions, and delegate equivalence checking to
+    math_verify.parse + math_verify.verify.
+    """
+    if not results:
+        return {"exact_match": 0.0}
+
+    pred_text = str(results[0])
+    gt_text = str(doc.get("groundtruth", ""))
+
+    # Wrap with $$ for LaTeX math mode
+    pred_text = f"${pred_text}$"
+    gt_text = f"${gt_text}$"
+
+    try:
+        from math_verify import parse, verify  # type: ignore[import]
+    except ImportError as e:
+        raise ModuleNotFoundError(
+            "math_verify is required for OmniMath tasks. "
+            "Please install via `pip install lm-eval[math]` or `pip install -e .[math]`."
+        ) from e
+
+    try:
+        ok = verify(gold=parse(gt_text), target=parse(pred_text))
+    except Exception as e:
+        # If parsing or verification fails, treat as incorrect but log the error.
+        print(f"math_verify error for OmniMath: {e}")
+        ok = False
+
+    # Expose this check as 'exact_match' so OmniMath tasks keep the standard metric name.
+    return {
+        "exact_match": 1.0 if ok else 0.0,
+    }
+
 
 def process_docs(
     dataset: datasets.Dataset,
