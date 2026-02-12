@@ -1,0 +1,10 @@
+group: adele_agieval
+task:
+  - adele_agieval_civil_service_examination_logiqa_en
+  - adele_agieval_gre_gmat_aqua_rat
+  - adele_agieval_lsat_lsat_ar
+  - adele_agieval_lsat_lsat_lr
+  - adele_agieval_lsat_lsat_rc
+  - adele_agieval_sat_sat_en
+  - adele_agieval_sat_sat_math
+

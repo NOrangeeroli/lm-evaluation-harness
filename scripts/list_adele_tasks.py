@@ -87,6 +87,11 @@ def main() -> None:
         help="Path to ADeLe CSV file "
         f"(default: {DEFAULT_CSV})",
     )
+    parser.add_argument(
+        "--no-examples",
+        action="store_true",
+        help="If set, do not print example prompt/groundtruth pairs for each task.",
+    )
     args = parser.parse_args()
 
     csv_path = Path(args.csv).expanduser()
@@ -121,8 +126,8 @@ def main() -> None:
 
                 print(f"    - {source} - {benchmark} - {task}: {answer_format}")
 
-                # Print one example question-groundtruth pair if available
-                if prompt or groundtruth:
+                # Optionally print one example question-groundtruth pair if available
+                if (not args.no_examples) and (prompt or groundtruth):
                     print("      Example prompt:")
                     if prompt:
                         print(f"        {prompt}")

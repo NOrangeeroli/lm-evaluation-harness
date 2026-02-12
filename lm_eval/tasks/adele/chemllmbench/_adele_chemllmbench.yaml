@@ -1,0 +1,8 @@
+group: adele_chemllmbench
+task:
+  - adele_chemllmbench_chemllmbench_molecule_captioning
+  - adele_chemllmbench_chemllmbench_molecule_design
+  - adele_chemllmbench_chemllmbench_name_prediction
+  - adele_chemllmbench_chemllmbench_reaction_prediction
+  - adele_chemllmbench_chemllmbench_retrosynthesis
+
