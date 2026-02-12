@@ -1,0 +1,6 @@
+include: ../../_adele_template_openended.yaml
+task: adele_livebench_data_analysis_cta
+description: "ADeLe cta task from LiveBench Data Analysis benchmark (LiveBench source)."
+process_docs: !function utils.process_docs_livebench_cta
+metadata:
+  version: 1.0

@@ -1,0 +1,6 @@
+include: ../../_adele_template_openended.yaml
+task: adele_livebench_reasoning_zebra_puzzle
+description: "ADeLe zebra_puzzle task from LiveBench Reasoning benchmark (LiveBench source)."
+process_docs: !function utils.process_docs_livebench_zebra_puzzle
+metadata:
+  version: 1.0

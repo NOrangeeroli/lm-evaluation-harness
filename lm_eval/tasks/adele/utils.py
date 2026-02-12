@@ -123,6 +123,15 @@ process_docs_lsat_rc = partial(process_docs, task_name="LSAT-RC")
 process_docs_sat_en = partial(process_docs, task_name="SAT-En")
 process_docs_sat_math = partial(process_docs, task_name="SAT-Math")
 
+# LiveBench tasks
+process_docs_livebench_cta = partial(process_docs, task_name="cta")
+process_docs_livebench_connections = partial(process_docs, task_name="connections")
+process_docs_livebench_amps_hard = partial(process_docs, task_name="AMPS_Hard")
+process_docs_livebench_math_comp = partial(process_docs, task_name="math_comp")
+process_docs_livebench_olympiad = partial(process_docs, task_name="olympiad")
+process_docs_livebench_spatial = partial(process_docs, task_name="spatial")
+process_docs_livebench_zebra_puzzle = partial(process_docs, task_name="zebra_puzzle")
+
 
 
 

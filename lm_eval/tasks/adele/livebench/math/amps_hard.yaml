@@ -1,0 +1,6 @@
+include: ../../_adele_template_openended.yaml
+task: adele_livebench_math_amps_hard
+description: "ADeLe AMPS_Hard task from LiveBench Math benchmark (LiveBench source)."
+process_docs: !function utils.process_docs_livebench_amps_hard
+metadata:
+  version: 1.0

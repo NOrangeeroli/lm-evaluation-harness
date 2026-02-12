@@ -1,0 +1,10 @@
+group: adele_livebench
+task:
+  - adele_livebench_data_analysis_cta
+  - adele_livebench_language_connections
+  - adele_livebench_math_amps_hard
+  - adele_livebench_math_math_comp
+  - adele_livebench_math_olympiad
+  - adele_livebench_reasoning_spatial
+  - adele_livebench_reasoning_zebra_puzzle
+

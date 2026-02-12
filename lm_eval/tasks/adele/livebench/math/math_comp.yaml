@@ -1,0 +1,6 @@
+include: ../../_adele_template_mc.yaml
+task: adele_livebench_math_math_comp
+description: "ADeLe math_comp task from LiveBench Math benchmark (LiveBench source)."
+process_docs: !function utils.process_docs_livebench_math_comp
+metadata:
+  version: 1.0

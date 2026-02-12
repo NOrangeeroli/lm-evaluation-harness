@@ -1,0 +1,6 @@
+include: ../../_adele_template_openended.yaml
+task: adele_livebench_language_connections
+description: "ADeLe connections task from LiveBench Language benchmark (LiveBench source)."
+process_docs: !function utils.process_docs_livebench_connections
+metadata:
+  version: 1.0
