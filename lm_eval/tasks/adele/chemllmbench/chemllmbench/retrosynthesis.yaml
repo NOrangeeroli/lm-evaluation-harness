@@ -1,0 +1,6 @@
+include: ../../_adele_template_openended.yaml
+task: adele_chemllmbench_chemllmbench_retrosynthesis
+description: "ADeLe retrosynthesis task from ChemLLMBench benchmark (ChemLLMBench source)."
+process_docs: !function utils.process_docs_retrosynthesis
+metadata:
+  version: 1.0

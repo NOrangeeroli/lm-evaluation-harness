@@ -6,8 +6,7 @@ doc_to_target: "{{groundtruth}}"
 generation_kwargs:
   until:
     - "</s>"
-    - "Q:"
-    - "<|im_end|>"
+    - "\n\n"
 num_fewshot: 0
 filter_list:
   - name: "extract-answer"

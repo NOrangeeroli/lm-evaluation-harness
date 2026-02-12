@@ -1,0 +1,6 @@
+include: ../../_adele_template_mc.yaml
+task: adele_agieval_lsat_lsat_ar
+description: "ADeLe LSAT-AR task from LSAT benchmark (AGIEval source)."
+process_docs: !function utils.process_docs_lsat_ar
+metadata:
+  version: 1.0

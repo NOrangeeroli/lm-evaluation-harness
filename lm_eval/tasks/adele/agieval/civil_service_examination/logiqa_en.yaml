@@ -1,0 +1,6 @@
+include: ../../_adele_template_mc.yaml
+task: adele_agieval_civil_service_examination_logiqa_en
+description: "ADeLe LogiQA-en task from Civil Service Examination benchmark (AGIEval source)."
+process_docs: !function utils.process_docs_logiqa_en
+metadata:
+  version: 1.0

@@ -1,6 +1,7 @@
 import datasets
 from functools import partial
 import numpy as np
+import re
 
 try:
     import evaluate
@@ -81,12 +82,43 @@ def doc_to_target(doc: dict) -> str:
     return groundtruth
 
 
+def doc_to_target_letter(doc: dict) -> str:
+    """
+    Extract just the letter from groundtruth for MC tasks.
+    Groundtruth format is like "G. The answer text..." or just "G"
+    Returns just the letter (e.g., "G").
+    """
+    groundtruth = str(doc.get("groundtruth", "")).strip()
+    if not groundtruth:
+        return ""
+    # If it's just a single letter, return it
+    if len(groundtruth) == 1 and groundtruth.isalpha():
+        return groundtruth.upper()
+    # If it starts with a letter followed by a period or space, extract the letter
+    match = re.match(r"^([A-Z])[.\s]", groundtruth)
+    if match:
+        return match.group(1)
+    # Otherwise, try to extract the first letter
+    if groundtruth[0].isalpha():
+        return groundtruth[0].upper()
+    return groundtruth
+
+
 # Process docs functions for individual tasks
 process_docs_molecule_captioning = partial(process_docs, task_name="molecule_captioning")
 process_docs_molecule_design = partial(process_docs, task_name="molecule_design")
 process_docs_name_prediction = partial(process_docs, task_name="name_prediction")
 process_docs_reaction_prediction = partial(process_docs, task_name="reaction_prediction")
 process_docs_retrosynthesis = partial(process_docs, task_name="retrosynthesis")
+
+# AGIEval tasks
+process_docs_logiqa_en = partial(process_docs, task_name="LogiQA-en")
+process_docs_aqua_rat = partial(process_docs, task_name="AQuA-RAT")
+process_docs_lsat_ar = partial(process_docs, task_name="LSAT-AR")
+process_docs_lsat_lr = partial(process_docs, task_name="LSAT-LR")
+process_docs_lsat_rc = partial(process_docs, task_name="LSAT-RC")
+process_docs_sat_en = partial(process_docs, task_name="SAT-En")
+process_docs_sat_math = partial(process_docs, task_name="SAT-Math")
 
 
 

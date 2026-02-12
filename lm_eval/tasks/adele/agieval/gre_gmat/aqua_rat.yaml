@@ -1,0 +1,6 @@
+include: ../../_adele_template_mc.yaml
+task: adele_agieval_gre_gmat_aqua_rat
+description: "ADeLe AQuA-RAT task from GRE & GMAT benchmark (AGIEval source)."
+process_docs: !function utils.process_docs_aqua_rat
+metadata:
+  version: 1.0

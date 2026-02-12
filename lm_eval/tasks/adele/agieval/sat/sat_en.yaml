@@ -1,0 +1,6 @@
+include: ../../_adele_template_mc.yaml
+task: adele_agieval_sat_sat_en
+description: "ADeLe SAT-En task from SAT benchmark (AGIEval source)."
+process_docs: !function utils.process_docs_sat_en
+metadata:
+  version: 1.0
