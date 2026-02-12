@@ -2,11 +2,5 @@ include: ../../_adele_template_openended_bleu.yaml
 task: adele_chemllmbench_chemllmbench_molecule_captioning
 description: "Given the molecular requirements description, your task is to design a new molecule using your experienced chemical Molecular Design knowledge.\n Give your answer in the format of SMILES.\n"
 process_docs: !function utils.process_docs_molecule_captioning
-num_fewshot: 1
-fewshot_config:
-  sampler: first_n
-  samples:
-    - prompt: "Molecule SMILES: CC(C)[C@H]1C(=O)N2CCC[C@H]2[C@]2(O)O[C@](NC(=O)[C@@H]3C=C4c5cccc6[nH]cc(c56)C[C@H]4N(C)C3)(C(C)C)C(=O)N12\n"
-      groundtruth: "The molecule is ergotaman bearing a hydroxy group at the 12' position, isopropyl groups at the 2' and 5'alpha positions, and oxo groups at positions 3', 6', and 18. It is a natural ergot alkaloid. It derives from a hydride of an ergotaman."
 metadata:
   version: 1.0
