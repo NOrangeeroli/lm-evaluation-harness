@@ -1,6 +1,7 @@
-include: ../../_adele_template_openended_bleu.yaml
+include: ../../_adele_template_openended.yaml
 task: adele_chemllmbench_chemllmbench_molecule_captioning
 description: "Given the molecular requirements description, your task is to design a new molecule using your experienced chemical Molecular Design knowledge.\n Give your answer in the format of SMILES.\n"
 process_docs: !function utils.process_docs_molecule_captioning
+process_results: !function utils.process_results_molecule_captioning
 metadata:
   version: 1.0

@@ -53,6 +53,35 @@ def process_results_gen(doc, results):
     }
 
 
+def process_results_molecule_captioning(doc, results):
+    """
+    Custom metric for molecule_captioning tasks.
+    
+    Computes BLEU score but reports it as 'exact_match' to keep the metric name consistent.
+    """
+    pred, refs = [results[0]], [doc_to_target(doc)]
+
+    if len(refs[0]) < 1 or len(pred[0]) < 1:
+        return {
+            "exact_match": np.NAN,
+        }
+
+    try:
+        bleu_results = bleu.compute(predictions=pred, references=refs)
+    except Exception as e:
+        print(f"BLEU error for molecule_captioning: {e}")
+        bleu_results = {"bleu": np.NAN}
+
+    if bleu_results["bleu"] == 0:
+        # Sometimes bleu is 0.0 and this breaks the stderr computation.
+        bleu_results["bleu"] += 1e-5
+
+    # Return BLEU score under the 'exact_match' key
+    return {
+        "exact_match": bleu_results["bleu"],
+    }
+
+
 def _extract_first_float(text: str) -> float | None:
     """
     Extract the first floating-point number from a string.
