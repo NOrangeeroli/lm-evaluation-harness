@@ -1,0 +1,13 @@
+group: adele
+task:
+  - adele_agieval
+  - adele_chemllmbench
+  - adele_livebench
+  - adele_medcalcbench
+  - adele_mmlu_pro
+  - adele_omnimath
+  - adele_scibench
+  - adele_timebench
+  - adele_truthquest
+metadata:
+  version: 1.0
