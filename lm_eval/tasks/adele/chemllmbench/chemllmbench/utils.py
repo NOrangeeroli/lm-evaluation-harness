@@ -12,6 +12,7 @@ from lm_eval.tasks.adele.utils import (
     process_docs_reaction_prediction,
     process_docs_retrosynthesis,
     process_results_gen,
+    process_results_smile,
     doc_to_target,
 )
 

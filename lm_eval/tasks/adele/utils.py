@@ -124,6 +124,59 @@ def process_results_medcalcbench(doc, results):
     }
 
 
+def process_results_smile(doc, results):
+    """
+    Custom metric for SMILES-based tasks (molecule_design, retrosynthesis) using InChI comparison.
+
+    Converts both prediction and groundtruth SMILES to InChI format using RDKit,
+    then compares the InChI strings. This is more robust than string matching
+    because different SMILES representations of the same molecule will have
+    the same InChI.
+
+    Based on the evaluation method from the Molecule_Design.ipynb notebook.
+    """
+    if not results:
+        return {"exact_match": 0.0}
+
+    pred_text = str(results[0]).strip()
+    gt_text = str(doc.get("groundtruth", "")).strip()
+
+    try:
+        from rdkit import Chem  # type: ignore[import]
+    except ImportError as e:
+        raise ModuleNotFoundError(
+            "rdkit is required for SMILES-based tasks (molecule_design, retrosynthesis). "
+            "Please install via `pip install rdkit`."
+        ) from e
+
+    try:
+        # Convert prediction SMILES to molecule and then to InChI
+        pred_mol = Chem.MolFromSmiles(pred_text)
+        if pred_mol is None:
+            # Invalid SMILES - treat as incorrect
+            return {"exact_match": 0.0}
+        pred_inchi = Chem.MolToInchi(pred_mol)
+
+        # Convert groundtruth SMILES to molecule and then to InChI
+        gt_mol = Chem.MolFromSmiles(gt_text)
+        if gt_mol is None:
+            # Invalid groundtruth - this shouldn't happen, but treat as incorrect
+            return {"exact_match": 0.0}
+        gt_inchi = Chem.MolToInchi(gt_mol)
+
+        # Compare InChI strings
+        ok = pred_inchi == gt_inchi
+    except Exception as e:
+        # If conversion fails for any reason, treat as incorrect but log the error
+        print(f"InChI conversion error for SMILES task: {e}")
+        ok = False
+
+    # Expose this check as 'exact_match' so SMILES-based tasks keep the standard metric name.
+    return {
+        "exact_match": 1.0 if ok else 0.0,
+    }
+
+
 def process_results_math(doc, results):
     """
     Custom metric for OmniMath tasks using math_verify.
