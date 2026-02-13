@@ -34,8 +34,7 @@ def process_results_gen(doc, results):
            
         }
 
-    print("pred: ", pred)
-    print("refs: ", refs)
+    
     try:
         
         bleu_results = bleu.compute(predictions=pred, references=refs)
