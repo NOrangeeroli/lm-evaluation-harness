@@ -1,3 +1,4 @@
+import ast
 import datasets
 from functools import partial
 import numpy as np
@@ -309,6 +310,44 @@ def doc_to_target_letter(doc: dict) -> str:
     if groundtruth[0].isalpha():
         return groundtruth[0].upper()
     return groundtruth
+
+
+def _parse_truthquest_groundtruth(groundtruth_str: str) -> set:
+    """
+    Parse TruthQuest groundtruth into the set of correct option letters.
+
+    Groundtruth format is like:
+        [{'A': False, 'B': False, 'C': False, 'D': True, 'E': True, 'F': True}]
+    or a single dict. Returns the set of letters that are True, e.g. {'D', 'E', 'F'}.
+    """
+    s = (groundtruth_str or "").strip()
+    if not s:
+        return set()
+    try:
+        parsed = ast.literal_eval(s)
+    except (ValueError, SyntaxError):
+        return set()
+    if isinstance(parsed, list) and len(parsed) > 0:
+        parsed = parsed[0]
+    if not isinstance(parsed, dict):
+        return set()
+    return {str(k).strip().upper() for k, v in parsed.items() if v is True}
+
+
+def process_results_truthquest(doc, results):
+    """
+    Evaluate TruthQuest multi-select MC: groundtruth is a dict of option -> bool.
+    Model output is filtered to the text after "Thus, the correct answer is:";
+    we extract all A-Z letters from that and compare the set to the correct set.
+    """
+    if not results:
+        return {"exact_match": 0.0}
+    gt_str = str(doc.get("groundtruth", "")).strip()
+    correct_set = _parse_truthquest_groundtruth(gt_str)
+    pred_str = (results[0] or "").strip() if results else ""
+    pred_letters = re.findall(r"[A-Z]", pred_str.upper())
+    pred_set = set(pred_letters)
+    return {"exact_match": 1.0 if pred_set == correct_set else 0.0}
 
 
 # Process docs functions for individual tasks
