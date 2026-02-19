@@ -312,42 +312,71 @@ def doc_to_target_letter(doc: dict) -> str:
     return groundtruth
 
 
-def _parse_truthquest_groundtruth(groundtruth_str: str) -> set:
+def _parse_truthquest_groundtruth(groundtruth_str: str) -> dict:
     """
-    Parse TruthQuest groundtruth into the set of correct option letters.
+    Parse TruthQuest groundtruth into a dict mapping option letters to bool.
 
     Groundtruth format is like:
         [{'A': False, 'B': False, 'C': False, 'D': True, 'E': True, 'F': True}]
-    or a single dict. Returns the set of letters that are True, e.g. {'D', 'E', 'F'}.
+    or a single dict. Returns dict like {'A': False, 'B': False, 'C': False, 'D': True, ...}.
     """
     s = (groundtruth_str or "").strip()
     if not s:
-        return set()
+        return {}
     try:
         parsed = ast.literal_eval(s)
     except (ValueError, SyntaxError):
-        return set()
+        return {}
     if isinstance(parsed, list) and len(parsed) > 0:
         parsed = parsed[0]
     if not isinstance(parsed, dict):
-        return set()
-    return {str(k).strip().upper() for k, v in parsed.items() if v is True}
+        return {}
+    return {str(k).strip().upper(): bool(v) for k, v in parsed.items()}
+
+
+def _parse_truthquest_prediction(pred_str: str) -> dict:
+    """
+    Parse TruthQuest model output into a dict mapping option letters to bool.
+
+    Model output format is like:
+        "A is a knight, B is a knave, and C is a knave."
+    Returns dict like {'A': True, 'B': False, 'C': False} where True=knight, False=knave.
+    """
+    s = (pred_str or "").strip()
+    if not s:
+        return {}
+    result = {}
+    # Pattern to match "X is a knight" or "X is a knave" (case-insensitive)
+    # Also handle variations like "X is knight", "X is knave", "X is the knight", etc.
+    pattern = r"([A-Z])(?:(?![A-Z]|knight|knave).)*(knight|knave)"
+
+    matches = re.finditer(pattern, s, re.IGNORECASE)
+    for match in matches:
+        letter = match.group(1).upper()
+        role = match.group(2).lower()
+        # knight -> True, knave -> False
+        result[letter] = role == "knight"
+    return result
 
 
 def process_results_truthquest(doc, results):
     """
-    Evaluate TruthQuest multi-select MC: groundtruth is a dict of option -> bool.
-    Model output is filtered to the text after "Thus, the correct answer is:";
-    we extract all A-Z letters from that and compare the set to the correct set.
+    Evaluate TruthQuest tasks: groundtruth is a dict mapping letters to bool (True=knight, False=knave).
+    Model output is parsed to extract statements like "A is a knight, B is a knave" and build
+    a dict mapping letters to bool. The two dicts are compared for exact match.
     """
     if not results:
         return {"exact_match": 0.0}
     gt_str = str(doc.get("groundtruth", "")).strip()
-    correct_set = _parse_truthquest_groundtruth(gt_str)
+    gt_dict = _parse_truthquest_groundtruth(gt_str)
     pred_str = (results[0] or "").strip() if results else ""
-    pred_letters = re.findall(r"[A-Z]", pred_str.upper())
-    pred_set = set(pred_letters)
-    return {"exact_match": 1.0 if pred_set == correct_set else 0.0}
+    pred_dict = _parse_truthquest_prediction(pred_str)
+    # Compare dicts: exact match only if all keys match and values match
+    if not gt_dict and not pred_dict:
+        return {"exact_match": 1.0}
+    if gt_dict.keys() != pred_dict.keys():
+        return {"exact_match": 0.0}
+    return {"exact_match": 1.0 if gt_dict == pred_dict else 0.0}
 
 
 # Process docs functions for individual tasks
