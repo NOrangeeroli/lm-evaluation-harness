@@ -347,11 +347,15 @@ def _parse_truthquest_prediction(pred_str: str) -> dict:
     if not s:
         return {}
     result = {}
-    # Pattern to match "X is a knight" or "X is a knave" (case-insensitive)
-    # Also handle variations like "X is knight", "X is knave", "X is the knight", etc.
-    pattern = r"([A-Z])(?:(?![A-Z]|knight|knave).)*(knight|knave)"
+    # Work on a lower-cased copy so we can use simple character classes.
+    s_lower = s.lower()
+    # Match a subject letter followed by anything, up to the nearest
+    # occurrence of "knight" / "knave" on the lower-cased string.
+    # This allows connectors like "is", ":", "=", etc.
+    # Then map the letter back to upper-case.
+    pattern = r"([a-z]).*?(knight|knave)"
 
-    matches = re.finditer(pattern, s, re.IGNORECASE)
+    matches = re.finditer(pattern, s_lower)
     for match in matches:
         letter = match.group(1).upper()
         role = match.group(2).lower()
