@@ -3,10 +3,40 @@
 
 import re
 
-# Mirror the logic used in _parse_truthquest_prediction: operate on lower-cased text
-# and use a pattern over [a-z], then map back to upper-case.
-# Work on a lower-cased copy so we can use simple [a-z]
-pattern = r"([a-z])\s*(?:is|:|=)\s*.*?(knight|knave)"
+# Mirror the logic used in _parse_truthquest_prediction:
+# Find all "knight" and "knave", then look backwards for A-Z letters
+
+def parse_truthquest_prediction(pred_str: str) -> dict:
+    """Same logic as _parse_truthquest_prediction in utils.py"""
+    s = (pred_str or "").strip()
+    if not s:
+        return {}
+    result = {}
+    
+    # Find all occurrences of "knight" and "knave" (case-insensitive)
+    s_lower = s.lower()
+    
+    # Collect all role word positions with their types
+    role_positions = []
+    for match in re.finditer(r'\bknight\b', s_lower):
+        role_positions.append((match.start(), True))  # True = knight
+    for match in re.finditer(r'\bknave\b', s_lower):
+        role_positions.append((match.start(), False))  # False = knave
+    
+    # Sort by position
+    role_positions.sort(key=lambda x: x[0])
+    
+    # For each role word, find letters in the segment before it
+    prev_pos = 0
+    for pos, is_knight in role_positions:
+        # Look for A-Z letters between prev_pos and pos
+        segment = s[prev_pos:pos]
+        letters = re.findall(r'[A-Z]', segment)
+        for letter in letters:
+            result[letter] = is_knight
+        prev_pos = pos
+    
+    return result
 
 test_cases = [
     ("A is a knight, B is a knave, and C is a knave.", {'A': True, 'B': False, 'C': False}),
@@ -21,21 +51,16 @@ test_cases = [
     ("A is a KNIGHT", {'A': True}),  # case insensitive
     ("B is a KNAVE", {'B': False}),   # case insensitive
     ("A: knight ;;; B:knave", {'A': True, 'B': False}),
+    ("A is a knight, B, C, and D are knaves.", {'A': True, 'B': False, 'C': False, 'D': False}),
 ]
 
-print("Testing pattern:", pattern)
+print("Testing TruthQuest prediction parser")
 print("=" * 80)
 
 for i, (test_str, expected) in enumerate(test_cases, 1):
     print(f"\nTest {i}: {test_str}")
-    s_lower = test_str.lower()
-    matches = list(re.finditer(pattern, s_lower))
-    if matches:
-        result = {}
-        for match in matches:
-            letter = match.group(1).upper()
-            role = match.group(2).lower()
-            result[letter] = role == "knight"
+    result = parse_truthquest_prediction(test_str)
+    if result:
         print(f"  Matched: {result}")
         print(f"  Expected: {expected}")
         print(f"  ✓ Match!" if result == expected else f"  ✗ Mismatch!")

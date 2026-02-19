@@ -341,26 +341,41 @@ def _parse_truthquest_prediction(pred_str: str) -> dict:
 
     Model output format is like:
         "A is a knight, B is a knave, and C is a knave."
+        "A is a knight, B, C, and D are knaves."
     Returns dict like {'A': True, 'B': False, 'C': False} where True=knight, False=knave.
+    
+    Strategy: Find all occurrences of "knight" and "knave", then for each,
+    look backwards to find all A-Z letters that appear between the previous
+    role word (or start of string) and the current role word.
     """
     s = (pred_str or "").strip()
     if not s:
         return {}
     result = {}
-    # Work on a lower-cased copy so we can use simple character classes.
+    
+    # Find all occurrences of "knight" and "knave" (case-insensitive)
     s_lower = s.lower()
-    # Match a subject letter followed by anything, up to the nearest
-    # occurrence of "knight" / "knave" on the lower-cased string.
-    # This allows connectors like "is", ":", "=", etc.
-    # Then map the letter back to upper-case.
-    pattern = r"([a-z]).*?(knight|knave)"
-
-    matches = re.finditer(pattern, s_lower)
-    for match in matches:
-        letter = match.group(1).upper()
-        role = match.group(2).lower()
-        # knight -> True, knave -> False
-        result[letter] = role == "knight"
+    
+    # Collect all role word positions with their types
+    role_positions = []
+    for match in re.finditer(r'\bknight\b', s_lower):
+        role_positions.append((match.start(), True))  # True = knight
+    for match in re.finditer(r'\bknave\b', s_lower):
+        role_positions.append((match.start(), False))  # False = knave
+    
+    # Sort by position
+    role_positions.sort(key=lambda x: x[0])
+    
+    # For each role word, find letters in the segment before it
+    prev_pos = 0
+    for pos, is_knight in role_positions:
+        # Look for A-Z letters between prev_pos and pos
+        segment = s[prev_pos:pos]
+        letters = re.findall(r'[A-Z]', segment)
+        for letter in letters:
+            result[letter] = is_knight
+        prev_pos = pos
+    
     return result
 
 

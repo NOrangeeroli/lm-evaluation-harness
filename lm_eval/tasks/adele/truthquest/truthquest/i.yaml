@@ -1,14 +1,13 @@
-include: ../../_adele_template_mc.yaml
+include: ../../_adele_template_openended.yaml
 task: adele_truthquest_truthquest_i
 description: "ADeLe I task from TruthQuest benchmark (TruthQuest source)."
 process_docs: !function utils.process_docs_truthquest_i
 process_results: !function utils.process_results_truthquest
-# Capture full answer (may list multiple letters, e.g. "D, E, F")
 filter_list:
   - name: "extract-answer"
     filter:
       - function: "regex"
-        regex_pattern: "^.*Thus, the correct answer is:\\s*(.*)$"
+        regex_pattern: "Thus, the correct answer is:\\s*(.*)"
       - function: "take_first"
 metadata:
   version: 1.0
