@@ -1,4 +1,5 @@
 import ast
+from datasets.arrow_dataset import Dataset
 import datasets
 from functools import partial
 import numpy as np
@@ -380,7 +381,7 @@ def process_results_truthquest(doc, results):
 
 
 # Process docs functions for individual tasks
-process_docs_molecule_captioning = partial(
+process_docs_molecule_captioning = partial[Dataset](
     process_docs, task_name="molecule_captioning", benchmark_name="ChemLLMBench"
 )
 process_docs_molecule_design = partial(
