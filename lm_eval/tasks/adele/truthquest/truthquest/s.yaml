@@ -7,7 +7,7 @@ filter_list:
   - name: "extract-answer"
     filter:
       - function: "regex"
-        regex_pattern: "Thus, the correct answer is:\\s*(.*)"
+        regex_pattern: "Thus, the correct answer is:\\s*(.*)$"
       - function: "take_first"
 metadata:
   version: 1.0
